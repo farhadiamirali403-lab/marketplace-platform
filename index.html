@@ -1,0 +1,1653 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Radin Shop | پلتفرم جامع فروشگاه، فریلنسری، آموزش و خدمات</title>
+    <meta name="description" content="رادین شاپ - خرید محصولات دیجیتال و فیزیکی، انجام پروژه‌های فریلنسری، آموزش آنلاین و خدمات تخصصی در یک پلتفرم یکپارچه">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-light: #60a5fa;
+            --primary-dark: #1e40af;
+            --secondary: #8b5cf6;
+            --secondary-light: #a78bfa;
+            --accent: #a855f7;
+            --bg: #ffffff;
+            --surface: #f8fafc;
+            --surface-alt: #f1f5f9;
+            --card: #ffffff;
+            --text: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 20px 40px -8px rgba(0, 0, 0, 0.1);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --radius-sm: 0.5rem;
+            --radius: 0.75rem;
+            --radius-md: 1rem;
+            --radius-lg: 1.5rem;
+            --radius-xl: 2rem;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-primary: 'Vazirmatn', 'Segoe UI', 'Roboto', system-ui, -apple-system, sans-serif;
+            --font-display: 'Vazirmatn', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        body.dark {
+            --bg: #0b1120;
+            --surface: #111827;
+            --surface-alt: #1e293b;
+            --card: #1a2235;
+            --text: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
+            --border: #1e293b;
+            --border-light: #263348;
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 20px 40px -8px rgba(0, 0, 0, 0.6);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+            overflow-x: hidden;
+            direction: rtl;
+            text-align: right;
+        }
+
+        /* ===== Scrollbar ===== */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--surface);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--primary-light), var(--secondary-light));
+        }
+
+        /* ===== Container ===== */
+        .container {
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .container-lg {
+            max-width: 1400px;
+        }
+
+        .container-sm {
+            max-width: 960px;
+        }
+
+        /* ===== Typography ===== */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 800;
+            line-height: 1.4;
+            font-family: var(--font-display);
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+        }
+
+        h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+        }
+
+        h3 {
+            font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        .gradient-text-blue {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-text-purple {
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 1rem;
+            position: relative;
+            display: block;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            margin: 0.8rem auto 0;
+        }
+
+        /* ===== Buttons ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            border-radius: 2.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition);
+            text-decoration: none;
+            font-size: 1rem;
+            font-family: var(--font-primary);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            box-shadow: none;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .btn-lg {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-sm {
+            padding: 0.5rem 1.2rem;
+            font-size: 0.9rem;
+        }
+
+        /* ===== Cards ===== */
+        .card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+        }
+
+        /* ===== Header / Navbar ===== */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        body.dark .header {
+            background: rgba(11, 17, 32, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .header.scrolled {
+            box-shadow: var(--shadow-md);
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: var(--transition);
+            position: relative;
+            padding: 0.3rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .dark-toggle {
+            background: var(--surface-alt);
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: var(--transition);
+            color: var(--text);
+        }
+
+        .dark-toggle:hover {
+            border-color: var(--primary);
+            transform: rotate(15deg);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--text);
+            padding: 0.5rem;
+        }
+
+        /* ===== Hero Section ===== */
+        .hero {
+            padding: 5rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            left: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.08), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08), transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-text {
+            flex: 1 1 500px;
+        }
+
+        .hero-text h1 {
+            margin-bottom: 1.5rem;
+            line-height: 1.3;
+        }
+
+        .hero-text .highlight {
+            display: inline-block;
+            position: relative;
+        }
+
+        .hero-text .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 5px;
+            z-index: -1;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+            line-height: 1.9;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            flex: 1 1 450px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-floating-card {
+            background: var(--card);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border);
+            text-align: center;
+            animation: float 6s ease-in-out infinite;
+            position: relative;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-emoji {
+            font-size: 6rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        /* ===== Section Spacing ===== */
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .section-bg {
+            background: var(--surface);
+        }
+
+        /* ===== Grid Layouts ===== */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        /* ===== Stats Section ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 2.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* ===== Testimonials ===== */
+        .testimonial-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .testimonial-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem;
+            color: white;
+        }
+
+        .testimonial-stars {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-name {
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        /* ===== FAQ ===== */
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary-light);
+        }
+
+        .faq-question {
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-weight: 600;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            color: var(--primary);
+        }
+
+        .faq-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+            color: var(--primary);
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.4s ease;
+            padding: 0 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding: 0 1.5rem 1.2rem;
+        }
+
+        /* ===== CTA Section ===== */
+        .cta-section {
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-card {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary), var(--accent));
+            border-radius: var(--radius-xl);
+            padding: 4rem 2rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .cta-card h2 {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-card p {
+            position: relative;
+            z-index: 1;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .cta-card .btn {
+            position: relative;
+            z-index: 1;
+            background: white;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .cta-card .btn:hover {
+            background: #f1f5f9;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        /* ===== Blog Section ===== */
+        .blog-card {
+            background: var(--card);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            height: 180px;
+            background: linear-gradient(135deg, var(--primary-light), var(--secondary-light));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-date {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .blog-title {
+            font-weight: 700;
+            margin: 0.5rem 0;
+        }
+
+        .blog-excerpt {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ===== Footer ===== */
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            padding: 4rem 0 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-col h4 {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+            padding-right: 5px;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        /* ===== Mobile Menu ===== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 350px;
+            height: 100vh;
+            background: var(--card);
+            z-index: 200;
+            padding: 2rem;
+            transition: right 0.4s ease;
+            box-shadow: var(--shadow-xl);
+            overflow-y: auto;
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 199;
+        }
+
+        .mobile-menu-overlay.active {
+            display: block;
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: none;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .mobile-menu a {
+            display: block;
+            padding: 1rem 0;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            border-bottom: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .mobile-menu a:hover {
+            color: var(--primary);
+        }
+
+        /* ===== Responsive ===== */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 1.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-visual {
+                margin-top: 2rem;
+            }
+
+            .hero-emoji {
+                font-size: 4rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 3rem 0;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .grid-2, .grid-3, .grid-4 {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-card {
+                padding: 2.5rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+
+            .stat-card {
+                padding: 1.2rem 1rem;
+            }
+
+            .stat-number {
+                font-size: 1.6rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 3rem 0 2rem;
+            }
+        }
+
+        /* ===== Animations ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; opacity: 0; }
+        .delay-2 { animation-delay: 0.2s; opacity: 0; }
+        .delay-3 { animation-delay: 0.3s; opacity: 0; }
+        .delay-4 { animation-delay: 0.4s; opacity: 0; }
+        .delay-5 { animation-delay: 0.5s; opacity: 0; }
+
+        /* ===== Pulse Animation for CTA ===== */
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(59, 130, 246, 0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* ===== Glass Effect ===== */
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        body.dark .glass {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <span class="logo-icon">◆</span> Radin Shop
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#home">خانه</a></li>
+                    <li><a href="#shop">فروشگاه</a></li>
+                    <li><a href="#freelance">فریلنسری</a></li>
+                    <li><a href="#education">آموزش</a></li>
+                    <li><a href="#services">خدمات</a></li>
+                    <li><a href="#blog">مقالات</a></li>
+                </ul>
+                <div class="nav-actions">
+                    <button class="dark-toggle" id="darkModeToggle" aria-label="تغییر حالت تاریک و روشن" title="تغییر حالت نمایش">
+                        <span class="dark-icon">🌙</span>
+                    </button>
+                    <a href="#" class="btn btn-primary btn-sm">ورود / ثبت‌نام</a>
+                    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="منوی موبایل">☰</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose">✕</button>
+        <a href="#home">خانه</a>
+        <a href="#shop">فروشگاه</a>
+        <a href="#freelance">فریلنسری</a>
+        <a href="#education">آموزش</a>
+        <a href="#services">خدمات</a>
+        <a href="#blog">مقالات</a>
+        <a href="#" class="btn btn-primary" style="margin-top: 1rem; display: inline-block;">ورود / ثبت‌نام</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text animate-fade-in-up">
+                        <span class="hero-badge">✨ پلتفرم جامع دیجیتال</span>
+                        <h1>
+                            به <span class="gradient-text">Radin Shop</span> خوش آمدید
+                        </h1>
+                        <p>
+                            یک اکوسیستم کامل دیجیتال؛ از <strong>فروشگاه اینترنتی</strong> محصولات دیجیتال و فیزیکی 
+                            گرفته تا <strong>مارکت‌پلیس فریلنسری</strong>، <strong>آموزش آنلاین</strong> و 
+                            <strong>خدمات تخصصی</strong>. همه چیز در یک پلتفرم یکپارچه و حرفه‌ای.
+                        </p>
+                        <div class="hero-buttons">
+                            <a href="#" class="btn btn-primary btn-lg pulse">🚀 شروع رایگان</a>
+                            <a href="#services" class="btn btn-outline btn-lg">کاوش خدمات</a>
+                        </div>
+                    </div>
+                    <div class="hero-visual animate-fade-in-up delay-2">
+                        <div class="hero-floating-card">
+                            <span class="hero-emoji">🛍️</span>
+                            <h3>فروشگاه + فریلنسری + آموزش</h3>
+                            <p style="color: var(--text-secondary);">همه نیازهای دیجیتال شما در یک جا</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Introduction -->
+        <section class="section section-bg" id="services">
+            <div class="container">
+                <h2 class="section-title">خدمات <span class="gradient-text">Radin Shop</span></h2>
+                <p class="section-subtitle">چهار بخش اصلی که تمام نیازهای دیجیتال شما را پوشش می‌دهند</p>
+                <div class="grid-4">
+                    <div class="card animate-fade-in-up delay-1">
+                        <div class="card-icon">🛒</div>
+                        <h3>فروشگاه</h3>
+                        <p style="color: var(--text-secondary);">
+                            گیفت کارت، لایسنس نرم‌افزار، بازی، قطعات کامپیوتر، موبایل، لپ‌تاپ، 
+                            کتاب الکترونیکی و محصولات دیجیتال با پرداخت امن.
+                        </p>
+                    </div>
+                    <div class="card animate-fade-in-up delay-2">
+                        <div class="card-icon">💼</div>
+                        <h3>فریلنسری</h3>
+                        <p style="color: var(--text-secondary);">
+                            ثبت پروژه، دریافت پیشنهاد از فریلنسرهای متخصص، چت داخلی، 
+                            قرارداد هوشمند و پرداخت امن.
+                        </p>
+                    </div>
+                    <div class="card animate-fade-in-up delay-3">
+                        <div class="card-icon">🎓</div>
+                        <h3>آموزش آنلاین</h3>
+                        <p style="color: var(--text-secondary);">
+                            دوره‌های ویدئویی حرفه‌ای، آزمون، صدور گواهی معتبر، 
+                            دانلود فایل و پیگیری پیشرفت.
+                        </p>
+                    </div>
+                    <div class="card animate-fade-in-up delay-4">
+                        <div class="card-icon">⚙️</div>
+                        <h3>خدمات تخصصی</h3>
+                        <p style="color: var(--text-secondary);">
+                            طراحی سایت، برنامه‌نویسی، سئو، امنیت سایبری، هوش مصنوعی، 
+                            دیجیتال مارکتینگ و مدیریت سرور.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="section">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card animate-fade-in-up delay-1">
+                        <span class="stat-icon">👥</span>
+                        <span class="stat-number" data-count="12000">۰</span>
+                        <span class="stat-label">کاربر فعال</span>
+                    </div>
+                    <div class="stat-card animate-fade-in-up delay-2">
+                        <span class="stat-icon">✅</span>
+                        <span class="stat-number" data-count="8500">۰</span>
+                        <span class="stat-label">پروژه موفق</span>
+                    </div>
+                    <div class="stat-card animate-fade-in-up delay-3">
+                        <span class="stat-icon">📚</span>
+                        <span class="stat-number" data-count="2200">۰</span>
+                        <span class="stat-label">دوره آموزشی</span>
+                    </div>
+                    <div class="stat-card animate-fade-in-up delay-4">
+                        <span class="stat-icon">⭐</span>
+                        <span class="stat-number" data-count="98">۰</span>
+                        <span class="stat-label">٪ رضایت مشتری</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Freelance & Shop Preview -->
+        <section class="section section-bg" id="freelance">
+            <div class="container">
+                <h2 class="section-title">بخش <span class="gradient-text-purple">فریلنسری</span> و <span class="gradient-text-blue">فروشگاه</span></h2>
+                <p class="section-subtitle">محیطی امن برای انجام پروژه‌ها و خرید محصولات</p>
+                <div class="grid-2">
+                    <div class="card animate-fade-in-up delay-1">
+                        <div class="card-icon">👨‍💻</div>
+                        <h3>برای فریلنسرها</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            پروفایل حرفه‌ای بسازید، نمونه‌کار و رزومه خود را نمایش دهید، 
+                            پروژه دریافت کنید و درآمد کسب کنید.
+                        </p>
+                        <ul style="list-style: none; color: var(--text-secondary);">
+                            <li>✔ ارسال پیشنهاد برای پروژه‌ها</li>
+                            <li>✔ چت داخلی با کارفرما</li>
+                            <li>✔ پرداخت امن و به موقع</li>
+                            <li>✔ سیستم امتیازدهی و اعتبارسنجی</li>
+                        </ul>
+                    </div>
+                    <div class="card animate-fade-in-up delay-2">
+                        <div class="card-icon">🎮</div>
+                        <h3>محصولات پرفروش</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+                            انواع گیفت کارت، لایسنس نرم‌افزار، تجهیزات گیمینگ و محصولات دیجیتال
+                        </p>
+                        <ul style="list-style: none; color: var(--text-secondary);">
+                            <li>🎁 گیفت کارت استیم، پلی‌استیشن، ایکس باکس</li>
+                            <li>💻 لایسنس ویندوز و آفیس</li>
+                            <li>🖱️ تجهیزات گیمینگ و قطعات کامپیوتر</li>
+                            <li>📱 موبایل، لپ‌تاپ و تجهیزات شبکه</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education & Courses -->
+        <section class="section" id="education">
+            <div class="container">
+                <h2 class="section-title">دوره‌های <span class="gradient-text">آموزشی</span></h2>
+                <p class="section-subtitle">یادگیری مهارت‌های جدید با دوره‌های حرفه‌ای و گواهی معتبر</p>
+                <div class="grid-3">
+                    <div class="card animate-fade-in-up delay-1">
+                        <div class="card-icon">🌐</div>
+                        <h3>طراحی و توسعه وب</h3>
+                        <p style="color: var(--text-secondary);">
+                            HTML، CSS، JavaScript، React، PHP و طراحی ریسپانسیو
+                        </p>
+                        <a href="#" class="btn btn-outline btn-sm" style="margin-top: 1rem;">مشاهده دوره</a>
+                    </div>
+                    <div class="card animate-fade-in-up delay-2">
+                        <div class="card-icon">🤖</div>
+                        <h3>هوش مصنوعی</h3>
+                        <p style="color: var(--text-secondary);">
+                            یادگیری ماشین، یادگیری عمیق، پردازش زبان طبیعی
+                        </p>
+                        <a href="#" class="btn btn-outline btn-sm" style="margin-top: 1rem;">مشاهده دوره</a>
+                    </div>
+                    <div class="card animate-fade-in-up delay-3">
+                        <div class="card-icon">🔒</div>
+                        <h3>امنیت سایبری</h3>
+                        <p style="color: var(--text-secondary);">
+                            تست نفوذ، امنیت شبکه، رمزنگاری و امنیت برنامه‌های وب
+                        </p>
+                        <a href="#" class="btn btn-outline btn-sm" style="margin-top: 1rem;">مشاهده دوره</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="section section-bg">
+            <div class="container">
+                <h2 class="section-title">نظرات <span class="gradient-text">کاربران</span></h2>
+                <p class="section-subtitle">آنچه مشتریان درباره Radin Shop می‌گویند</p>
+                <div class="grid-3">
+                    <div class="testimonial-card animate-fade-in-up delay-1">
+                        <div class="testimonial-avatar">👩</div>
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">
+                            "بهترین پلتفرم برای خرید گیفت کارت و محصولات دیجیتال. 
+                            پشتیبانی عالی و تحویل فوری!"
+                        </p>
+                        <p class="testimonial-name">سارا محمدی</p>
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">خریدار</span>
+                    </div>
+                    <div class="testimonial-card animate-fade-in-up delay-2">
+                        <div class="testimonial-avatar">👨</div>
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">
+                            "از طریق Radin Shop چندین پروژه برنامه‌نویسی گرفتم. 
+                            سیستم پرداخت امن و پشتیبانی حرفه‌ای."
+                        </p>
+                        <p class="testimonial-name">علی رضایی</p>
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">فریلنسر</span>
+                    </div>
+                    <div class="testimonial-card animate-fade-in-up delay-3">
+                        <div class="testimonial-avatar">👩‍💻</div>
+                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">
+                            "دوره‌های آموزشی بسیار با کیفیت و کاربردی. 
+                            گواهی پایان دوره هم بسیار معتبر بود."
+                        </p>
+                        <p class="testimonial-name">مریم حسینی</p>
+                        <span style="color: var(--text-muted); font-size: 0.85rem;">دانشجو</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="section">
+            <div class="container container-sm">
+                <h2 class="section-title">سوالات <span class="gradient-text">متداول</span></h2>
+                <p class="section-subtitle">پاسخ به پرتکرارترین سوالات شما</p>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>چگونه در Radin Shop ثبت‌نام کنم؟</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>کافیست روی دکمه "ورود / ثبت‌نام" کلیک کنید و با وارد کردن ایمیل و رمز عبور، حساب کاربری خود را بسازید. ثبت‌نام کاملاً رایگان است.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>پرداخت‌ها چقدر امن هستند؟</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>تمام پرداخت‌ها از طریق درگاه‌های امن بانکی انجام می‌شود و اطلاعات مالی شما به صورت رمزنگاری شده نگهداری می‌شود.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>آیا فریلنسرها تایید هویت می‌شوند؟</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>بله، تمام فریلنسرها فرآیند احراز هویت را طی می‌کنند و نمونه‌کارهای آن‌ها بررسی می‌شود تا کیفیت خدمات تضمین شود.</p>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>دوره‌های آموزشی تا چه مدت در دسترس هستند؟</span>
+                            <span class="faq-icon">+</span>
+                        </div>
+                        <div class="faq-answer">
+                            <p>پس از خرید دوره، به صورت مادام‌العمر به محتوای دوره و آپدیت‌های آن دسترسی خواهید داشت.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section class="section section-bg" id="blog">
+            <div class="container">
+                <h2 class="section-title">آخرین <span class="gradient-text">مقالات</span></h2>
+                <p class="section-subtitle">مطالب آموزشی و اخبار دنیای فناوری</p>
+                <div class="grid-3">
+                    <div class="blog-card animate-fade-in-up delay-1">
+                        <div class="blog-image">📝</div>
+                        <div class="blog-content">
+                            <span class="blog-date">۱۵ فروردین ۱۴۰۴</span>
+                            <h4 class="blog-title">راهنمای جامع شروع فریلنسری</h4>
+                            <p class="blog-excerpt">نکات طلایی برای موفقیت در دنیای فریلنسری و جذب پروژه‌های بیشتر...</p>
+                        </div>
+                    </div>
+                    <div class="blog-card animate-fade-in-up delay-2">
+                        <div class="blog-image">🔧</div>
+                        <div class="blog-content">
+                            <span class="blog-date">۱۰ فروردین ۱۴۰۴</span>
+                            <h4 class="blog-title">۵ فریم‌ورک برتر جاوااسکریپت</h4>
+                            <p class="blog-excerpt">مقایسه React، Vue، Angular، Svelte و Next.js برای پروژه‌های وب...</p>
+                        </div>
+                    </div>
+                    <div class="blog-card animate-fade-in-up delay-3">
+                        <div class="blog-image">🛡️</div>
+                        <div class="blog-content">
+                            <span class="blog-date">۵ فروردین ۱۴۰۴</span>
+                            <h4 class="blog-title">امنیت در خریدهای اینترنتی</h4>
+                            <p class="blog-excerpt">چگونه از کلاهبرداری‌های آنلاین جلوگیری کنیم و خرید امن داشته باشیم...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="section cta-section">
+            <div class="container">
+                <div class="cta-card">
+                    <h2>🚀 همین حالا به Radin Shop بپیوندید</h2>
+                    <p style="font-size: 1.1rem;">
+                        به جامعه بزرگ کاربران ما ملحق شوید و از تمام امکانات 
+                        فروشگاه، فریلنسری، آموزش و خدمات تخصصی بهره‌مند شوید.
+                    </p>
+                    <a href="#" class="btn btn-lg">ثبت‌نام رایگان</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="footer-logo">◆ Radin Shop</div>
+                    <p style="color: var(--text-secondary);">
+                        پلتفرم جامع تجارت الکترونیک، فریلنسری، آموزش آنلاین و خدمات تخصصی
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>دسترسی سریع</h4>
+                    <ul>
+                        <li><a href="#">فروشگاه</a></li>
+                        <li><a href="#">فریلنسری</a></li>
+                        <li><a href="#">دوره‌های آموزشی</a></li>
+                        <li><a href="#">خدمات تخصصی</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>پشتیبانی</h4>
+                    <ul>
+                        <li><a href="#">مرکز راهنمایی</a></li>
+                        <li><a href="#">قوانین و مقررات</a></li>
+                        <li><a href="#">حریم خصوصی</a></li>
+                        <li><a href="#">تماس با ما</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>ارتباط با ما</h4>
+                    <ul>
+                        <li>📧 support@radinshop.com</li>
+                        <li>📞 ۰۲۱-۱۲۳۴۵۶۷۸</li>
+                        <li>📍 تهران، ایران</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© ۲۰۲۵ Radin Shop. تمام حقوق محفوظ است. ساخته شده با ❤️</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        (function() {
+            // ===== DOM Elements =====
+            const body = document.body;
+            const darkToggle = document.getElementById('darkModeToggle');
+            const darkIcon = darkToggle.querySelector('.dark-icon');
+            const header = document.getElementById('header');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenuClose = document.getElementById('mobileMenuClose');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+            const faqItems = document.querySelectorAll('.faq-item');
+            const statNumbers = document.querySelectorAll('.stat-number');
+
+            // ===== Dark Mode =====
+            const savedTheme = localStorage.getItem('radin_theme');
+            if (savedTheme === 'dark') {
+                body.classList.add('dark');
+                darkIcon.textContent = '☀️';
+            } else {
+                darkIcon.textContent = '🌙';
+            }
+
+            darkToggle.addEventListener('click', () => {
+                body.classList.toggle('dark');
+                if (body.classList.contains('dark')) {
+                    localStorage.setItem('radin_theme', 'dark');
+                    darkIcon.textContent = '☀️';
+                } else {
+                    localStorage.setItem('radin_theme', 'light');
+                    darkIcon.textContent = '🌙';
+                }
+            });
+
+            // ===== Header Scroll Effect =====
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+            // ===== Mobile Menu =====
+            function openMobileMenu() {
+                mobileMenu.classList.add('active');
+                mobileMenuOverlay.classList.add('active');
+                body.style.overflow = 'hidden';
+            }
+
+            function closeMobileMenu() {
+                mobileMenu.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                body.style.overflow = '';
+            }
+
+            mobileMenuBtn.addEventListener('click', openMobileMenu);
+            mobileMenuClose.addEventListener('click', closeMobileMenu);
+            mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+            // Close mobile menu when clicking on links
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMobileMenu();
+                });
+            });
+
+            // ===== FAQ Accordion =====
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // Close all FAQ items
+                    faqItems.forEach(faq => faq.classList.remove('active'));
+                    
+                    // Open clicked item if it wasn't active
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
+
+            // ===== Animate Stats Counter =====
+            function animateStats() {
+                statNumbers.forEach(stat => {
+                    const target = parseInt(stat.getAttribute('data-count'));
+                    const duration = 2000;
+                    const step = target / (duration / 16);
+                    let current = 0;
+                    
+                    const updateCounter = () => {
+                        current += step;
+                        if (current < target) {
+                            stat.textContent = Math.floor(current).toLocaleString('fa-IR');
+                            requestAnimationFrame(updateCounter);
+                        } else {
+                            stat.textContent = target.toLocaleString('fa-IR');
+                        }
+                    };
+                    
+                    updateCounter();
+                });
+            }
+
+            // ===== Intersection Observer for animations =====
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Animate stats when stats section is visible
+                        if (entry.target.querySelector('.stat-number') && !entry.target.dataset.animated) {
+                            entry.target.dataset.animated = 'true';
+                            animateStats();
+                        }
+                        
+                        // Add visible class for CSS animations
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe stat cards
+            document.querySelectorAll('.stat-card').forEach(card => {
+                observer.observe(card);
+            });
+
+            // Observe animate-fade-in-up elements
+            document.querySelectorAll('.animate-fade-in-up').forEach(el => {
+                observer.observe(el);
+            });
+
+            // ===== Smooth Scroll for anchor links =====
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    const target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // ===== Initialize =====
+            // Trigger scroll event on load to set header state
+            window.dispatchEvent(new Event('scroll'));
+
+            console.log('🚀 Radin Shop - صفحه اصلی با موفقیت بارگذاری شد');
+            console.log('💡 پلتفرم جامع فروشگاه، فریلنسری، آموزش و خدمات');
+        })();
+    </script>
+</body>
+</html>
