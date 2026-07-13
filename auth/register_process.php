@@ -1,7 +1,7 @@
 <?php
-// register_process.php - ثبت نام کاربر جدید
+// register_process.php - پردازش ثبت نام
 
-// استارت سشن
+// استارت سشن امن
 if (session_status() === PHP_SESSION_NONE) {
     ini_set('session.cookie_httponly', 1);
     ini_set('session.use_only_cookies', 1);
@@ -11,7 +11,7 @@ if (session_status() === PHP_SESSION_NONE) {
 // اتصال به دیتابیس
 require_once 'config.php';
 
-// تابع برای پاکسازی ورودی‌ها
+// تابع پاکسازی ورودی‌ها
 function cleanInput($data) {
     $data = trim($data);
     $data = stripslashes($data);
@@ -19,15 +19,7 @@ function cleanInput($data) {
     return $data;
 }
 
-// تابع تولید توکن CSRF
-function generateCsrfToken() {
-    if (empty($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
-    return $_SESSION['csrf_token'];
-}
-
-// تابع验证 CSRF
+// تابع بررسی CSRF
 function verifyCsrfToken($token) {
     if (!isset($_SESSION['csrf_token']) || empty($token)) {
         return false;
@@ -35,21 +27,20 @@ function verifyCsrfToken($token) {
     return hash_equals($_SESSION['csrf_token'], $token);
 }
 
-// تولید توکن CSRF جدید
-$csrf_token = generateCsrfToken();
-
 // بررسی اینکه فرم ارسال شده
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: register.html');
+    header('Location: register.php');
     exit;
 }
 
 // بررسی توکن CSRF
 if (!isset($_POST['csrf_token']) || !verifyCsrfToken($_POST['csrf_token'])) {
-    die("خطای امنیتی: درخواست نامعتبر است. لطفاً دوباره تلاش کنید.");
+    $_SESSION['register_errors'] = ["خطای امنیتی: لطفاً دوباره تلاش کنید."];
+    header('Location: register.php');
+    exit;
 }
 
-// پاکسازی و دریافت داده‌ها
+// دریافت و پاکسازی داده‌ها
 $fullname = cleanInput($_POST['fullname'] ?? '');
 $username = cleanInput($_POST['username'] ?? '');
 $email = cleanInput($_POST['email'] ?? '');
@@ -57,68 +48,68 @@ $phone = cleanInput($_POST['phone'] ?? '');
 $password = $_POST['password'] ?? '';
 $confirm_password = $_POST['confirm_password'] ?? '';
 
-// آرایه برای ذخیره خطاها
+// آرایه خطاها
 $errors = [];
 
-// ============ اعتبارسنجی ============
+// ============ اعتبارسنجی کامل ============
 
 // 1. بررسی نام و نام خانوادگی
 if (empty($fullname)) {
-    $errors[] = "نام و نام خانوادگی الزامی است.";
-} elseif (strlen($fullname) < 3 || strlen($fullname) > 100) {
-    $errors[] = "نام و نام خانوادگی باید بین 3 تا 100 کاراکتر باشد.";
-} elseif (!preg_match('/^[\p{L}\s]+$/u', $fullname)) {
-    $errors[] = "نام و نام خانوادگی فقط باید شامل حروف فارسی یا انگلیسی باشد.";
+    $errors['fullname'] = "نام و نام خانوادگی الزامی است.";
+} elseif (strlen($fullname) < 3) {
+    $errors['fullname'] = "نام و نام خانوادگی باید حداقل ۳ کاراکتر باشد.";
+} elseif (strlen($fullname) > 100) {
+    $errors['fullname'] = "نام و نام خانوادگی نباید بیشتر از ۱۰۰ کاراکتر باشد.";
 }
 
 // 2. بررسی نام کاربری
 if (empty($username)) {
-    $errors[] = "نام کاربری الزامی است.";
+    $errors['username'] = "نام کاربری الزامی است.";
 } elseif (!preg_match('/^[a-zA-Z0-9_-]{3,20}$/', $username)) {
-    $errors[] = "نام کاربری باید شامل حروف انگلیسی، اعداد، خط تیره و بین 3 تا 20 کاراکتر باشد.";
+    $errors['username'] = "نام کاربری باید شامل حروف انگلیسی، اعداد، خط تیره و بین ۳ تا ۲۰ کاراکتر باشد.";
 } else {
-    // بررسی تکراری نبودن نام کاربری
+    // **چک کردن وجود نام کاربری در دیتابیس**
     $check_stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
     $check_stmt->bind_param("s", $username);
     $check_stmt->execute();
     $check_stmt->store_result();
     if ($check_stmt->num_rows > 0) {
-        $errors[] = "این نام کاربری قبلاً ثبت شده است.";
+        $errors['username'] = "❌ این نام کاربری قبلاً ثبت شده است. لطفاً نام دیگری انتخاب کنید.";
     }
     $check_stmt->close();
 }
 
 // 3. بررسی ایمیل
 if (empty($email)) {
-    $errors[] = "ایمیل الزامی است.";
+    $errors['email'] = "ایمیل الزامی است.";
 } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $errors[] = "فرمت ایمیل نامعتبر است.";
+    $errors['email'] = "فرمت ایمیل نامعتبر است.";
 } elseif (strlen($email) > 100) {
-    $errors[] = "ایمیل نباید بیشتر از 100 کاراکتر باشد.";
+    $errors['email'] = "ایمیل نباید بیشتر از ۱۰۰ کاراکتر باشد.";
 } else {
-    // بررسی تکراری نبودن ایمیل
+    // **چک کردن وجود ایمیل در دیتابیس**
     $check_stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
     $check_stmt->bind_param("s", $email);
     $check_stmt->execute();
     $check_stmt->store_result();
     if ($check_stmt->num_rows > 0) {
-        $errors[] = "این ایمیل قبلاً ثبت شده است.";
+        $errors['email'] = "❌ این ایمیل قبلاً ثبت شده است. لطفاً با ایمیل دیگری ثبت نام کنید.";
     }
     $check_stmt->close();
 }
 
-// 4. بررسی شماره موبایل (اختیاری)
+// 4. بررسی شماره موبایل (اختیاری ولی اگر وارد شده چک شود)
 if (!empty($phone)) {
     if (!preg_match('/^09[0-9]{9}$/', $phone)) {
-        $errors[] = "شماره موبایل نامعتبر است (مثال: 09121234567).";
+        $errors['phone'] = "شماره موبایل نامعتبر است (مثال: 09121234567).";
     } else {
-        // بررسی تکراری نبودن موبایل
+        // **چک کردن وجود موبایل در دیتابیس**
         $check_stmt = $conn->prepare("SELECT id FROM users WHERE phone = ?");
         $check_stmt->bind_param("s", $phone);
         $check_stmt->execute();
         $check_stmt->store_result();
         if ($check_stmt->num_rows > 0) {
-            $errors[] = "این شماره موبایل قبلاً ثبت شده است.";
+            $errors['phone'] = "❌ این شماره موبایل قبلاً ثبت شده است.";
         }
         $check_stmt->close();
     }
@@ -126,27 +117,27 @@ if (!empty($phone)) {
 
 // 5. بررسی رمز عبور
 if (empty($password)) {
-    $errors[] = "رمز عبور الزامی است.";
+    $errors['password'] = "رمز عبور الزامی است.";
 } elseif (strlen($password) < 8) {
-    $errors[] = "رمز عبور باید حداقل 8 کاراکتر باشد.";
+    $errors['password'] = "رمز عبور باید حداقل ۸ کاراکتر باشد.";
 } elseif (!preg_match('/[A-Z]/', $password)) {
-    $errors[] = "رمز عبور باید حداقل یک حرف بزرگ داشته باشد.";
+    $errors['password'] = "رمز عبور باید حداقل یک حرف بزرگ (A-Z) داشته باشد.";
 } elseif (!preg_match('/[a-z]/', $password)) {
-    $errors[] = "رمز عبور باید حداقل یک حرف کوچک داشته باشد.";
+    $errors['password'] = "رمز عبور باید حداقل یک حرف کوچک (a-z) داشته باشد.";
 } elseif (!preg_match('/[0-9]/', $password)) {
-    $errors[] = "رمز عبور باید حداقل یک عدد داشته باشد.";
-} elseif (!preg_match('/[!@#$%^&*(),.?":{}|<>]/', $password)) {
-    $errors[] = "رمز عبور باید حداقل یک کاراکتر خاص داشته باشد (!@#$%^&*).";
+    $errors['password'] = "رمز عبور باید حداقل یک عدد (0-9) داشته باشد.";
 }
 
 // 6. بررسی تکرار رمز عبور
-if ($password !== $confirm_password) {
-    $errors[] = "رمز عبور و تکرار آن مطابقت ندارند.";
+if (empty($confirm_password)) {
+    $errors['confirm_password'] = "تکرار رمز عبور الزامی است.";
+} elseif ($password !== $confirm_password) {
+    $errors['confirm_password'] = "رمز عبور و تکرار آن مطابقت ندارند.";
 }
 
 // ============ اگر خطایی وجود داشت ============
 if (!empty($errors)) {
-    // ذخیره خطاها در سشن
+    // ذخیره خطاها در سشن (با کلیدهای مشخص)
     $_SESSION['register_errors'] = $errors;
     
     // ذخیره داده‌های وارد شده برای پر کردن مجدد فرم
@@ -157,14 +148,14 @@ if (!empty($errors)) {
         'phone' => $phone
     ];
     
-    // ریدایرکت به صفحه ثبت نام
-    header('Location: register.html');
+    // ریدایرکت به صفحه ثبت نام با خطاها
+    header('Location: register.php');
     exit;
 }
 
 // ============ ثبت نام کاربر ============
 
-// هش کردن رمز عبور با BCRYPT (قوی‌ترین روش)
+// هش کردن رمز عبور با BCRYPT
 $hashed_password = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
 
 // دریافت IP کاربر
@@ -197,15 +188,13 @@ if ($stmt->execute()) {
     $stmt->close();
     $conn->close();
     
-    // ریدایرکت به پروفایل
-    header('Location: profile.php?success=ثبت نام با موفقیت انجام شد');
+    // **ریدایرکت به صفحه موفقیت**
+    header('Location: register_success.php');
     exit;
     
 } else {
     // خطا در ثبت نام
-    logError("Register error: " . $conn->error);
-    
-    $_SESSION['register_errors'] = ["خطا در ثبت نام. لطفاً دوباره تلاش کنید."];
+    $_SESSION['register_errors'] = ['general' => "❌ خطا در ثبت نام. لطفاً دوباره تلاش کنید."];
     $_SESSION['register_data'] = [
         'fullname' => $fullname,
         'username' => $username,
@@ -216,16 +205,7 @@ if ($stmt->execute()) {
     $stmt->close();
     $conn->close();
     
-    header('Location: register.html');
+    header('Location: register.php');
     exit;
-}
-
-// تابع لاگ خطا (اختیاری)
-function logError($message) {
-    $logFile = 'logs/error.log';
-    $date = date('Y-m-d H:i:s');
-    $ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown';
-    $log = "[$date] [IP: $ip] $message" . PHP_EOL;
-    error_log($log, 3, $logFile);
 }
 ?>
