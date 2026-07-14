@@ -178,7 +178,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
 
       <!-- Nav Links -->
       <div class="navbar-nav hide-md">
-        <a href="index.php" class="nav-link active">خانه</a>
+        <a href="../index.php" class="nav-link active">خانه</a>
         <a href="pages/shop.php" class="nav-link">فروشگاه</a>
         <a href="pages/freelance.php" class="nav-link">فریلنسری</a>
         <a href="pages/courses.php" class="nav-link">آموزش‌ها</a>

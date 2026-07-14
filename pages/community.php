@@ -20,12 +20,12 @@
         <span class="navbar-brand-text">R_REX</span>
       </a>
       <div class="navbar-nav hide-md">
-        <a href="../index.html" class="nav-link">خانه</a>
-        <a href="shop.html" class="nav-link">فروشگاه</a>
-        <a href="freelance.html" class="nav-link">فریلنسری</a>
-        <a href="courses.html" class="nav-link">آموزش‌ها</a>
-        <a href="community.html" class="nav-link active">انجمن</a>
-        <a href="pricing.html" class="nav-link">اشتراک‌ها</a>
+        <a href="../index.php" class="nav-link">خانه</a>
+        <a href="shop.php" class="nav-link">فروشگاه</a>
+        <a href="freelance.php" class="nav-link">فریلنسری</a>
+        <a href="courses.php" class="nav-link">آموزش‌ها</a>
+        <a href="community.php" class="nav-link active">انجمن</a>
+        <a href="pricing.php" class="nav-link">اشتراک‌ها</a>
       </div>
       <div class="navbar-actions">
         <button class="theme-toggle"></button>
