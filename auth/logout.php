@@ -1,19 +1,17 @@
 <?php
-// logout.php - خروج از حساب
+// auth/logout.php - خروج از حساب
 
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.use_only_cookies', 1);
-    session_start();
-}
+// چون config.php داخل خود auth هست
+require_once 'config.php';
+startSecureSession();
 
 // پاک کردن کوکی Remember Me
 if (isset($_COOKIE['remember_token'])) {
-    setcookie('remember_token', '', time() - 3600, '/', '', true, true);
-    setcookie('user_id', '', time() - 3600, '/', '', true, true);
+    setcookie('remember_token', '', time() - 3600, '/', '', false, true);
+    setcookie('user_id', '', time() - 3600, '/', '', false, true);
 }
 
-// پاک کردن سشن
+// پاک کردن همه متغیرهای سشن
 $_SESSION = array();
 
 // پاک کردن کوکی سشن
@@ -28,7 +26,7 @@ if (ini_get("session.use_cookies")) {
 // نابود کردن سشن
 session_destroy();
 
-// ریدایرکت به صفحه لاگین
-header('Location: login.html');
+// ریدایرکت به صفحه اصلی
+header('Location: ../index.php?message=شما با موفقیت خارج شدید');
 exit;
 ?>

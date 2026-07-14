@@ -1,421 +1,369 @@
 <?php
-// register.php - صفحه ثبت نام
+// auth/register.php - صفحه ثبت نام با تم دارک
 
-// استارت سشن
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.use_only_cookies', 1);
-    session_start();
-}
-
-// تابع تولید توکن CSRF
-function generateCsrfToken() {
-    if (empty($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
-    return $_SESSION['csrf_token'];
-}
+// چون config.php داخل خود auth هست
+require_once 'config.php';
+startSecureSession();
 
 $csrf_token = generateCsrfToken();
 
-// دریافت خطاها از سشن
 $errors = $_SESSION['register_errors'] ?? [];
 $old_data = $_SESSION['register_data'] ?? [];
 
-// پاک کردن سشن بعد از خواندن
 unset($_SESSION['register_errors']);
 unset($_SESSION['register_data']);
 ?>
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ثبت نام</title>
+    <title>ثبت نام | R_REX</title>
+    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    
     <style>
-        /* reset css */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Tahoma, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .auth-page {
             min-height: 100vh;
-            padding: 20px;
-            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            padding: var(--space-6);
+            direction: rtl;
         }
-
-        .container {
-            background: #ffffff;
-            padding: 40px 35px;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        
+        .auth-container {
             width: 100%;
-            max-width: 550px;
+            max-width: 520px;
             animation: fadeIn 0.5s ease;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        
+        .auth-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-card-hover);
         }
-
-        h2 {
+        
+        .auth-header {
             text-align: center;
-            color: #2d3748;
-            margin-bottom: 25px;
-            font-size: 28px;
+            margin-bottom: var(--space-8);
         }
-
-        h2 span {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        
+        .auth-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            text-decoration: none;
+            margin-bottom: var(--space-4);
         }
-
-        .error-box {
-            background: #fed7d7;
-            border: 2px solid #fc8181;
-            color: #c53030;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        
+        .auth-logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--gradient-brand);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-lg);
         }
-
-        .error-box ul {
-            margin: 0;
-            padding-right: 20px;
-            list-style: none;
+        
+        .auth-logo-text {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
         }
-
-        .error-box li {
-            padding: 5px 0;
+        
+        .auth-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
         }
-
-        .error-box li::before {
-            content: "❌ ";
+        
+        .auth-subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
         }
-
-        .form-group {
-            margin-bottom: 18px;
-            width: 100%;
+        
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin: var(--space-6) 0;
+            color: var(--text-tertiary);
+            font-size: var(--font-size-xs);
         }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #2d3748;
-            font-size: 14px;
+        
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-primary);
         }
-
-        label .required {
-            color: #e53e3e;
-        }
-
-        /* استایل اینپوت‌ها */
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="password"] {
-            width: 100%;
-            height: 48px;
-            padding: 0 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: Tahoma, Arial, sans-serif;
-            transition: all 0.3s ease;
-            background: #f7fafc;
-            direction: ltr;
-            display: block;
-        }
-
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="tel"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #667eea;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
-        }
-
-        input[type="text"].error,
-        input[type="email"].error,
-        input[type="tel"].error,
-        input[type="password"].error {
-            border-color: #fc8181;
-            background: #fff5f5;
-        }
-
-        /* wrapper برای رمز عبور */
+        
         .password-wrapper {
             position: relative;
             width: 100%;
-            display: flex;
-            align-items: center;
         }
-
-        .password-wrapper input {
-            padding-left: 50px;
-            height: 48px;
+        
+        .password-wrapper .form-input {
+            padding-left: 3rem;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border-color: var(--border-input);
         }
-
+        
+        .password-wrapper .form-input:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            background: var(--bg-primary);
+        }
+        
         .toggle-password {
             position: absolute;
-            left: 12px;
+            left: 0.75rem;
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 22px;
-            padding: 0;
-            width: 35px;
-            height: 35px;
+            font-size: 1.25rem;
+            padding: 0.25rem;
+            color: var(--text-tertiary);
+            transition: all var(--transition-fast);
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #718096;
-            transition: all 0.2s ease;
-            border-radius: 50%;
-            user-select: none;
+            width: 2rem;
+            height: 2rem;
         }
-
+        
         .toggle-password:hover {
-            background: #edf2f7;
-            color: #667eea;
-            transform: translateY(-50%) scale(1.1);
+            color: var(--text-primary);
+            background: var(--bg-hover);
         }
-
-        .toggle-password:active {
-            transform: translateY(-50%) scale(0.9);
-        }
-
-        .error-text {
-            color: #e53e3e;
-            font-size: 13px;
-            margin-top: 6px;
-            display: block;
-        }
-
-        .password-hint {
-            font-size: 12px;
-            color: #718096;
-            margin-top: 6px;
-        }
-
-        button[type="submit"] {
-            width: 100%;
-            height: 50px;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 5px;
-            font-family: Tahoma, Arial, sans-serif;
-        }
-
-        button[type="submit"]:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-
-        button[type="submit"]:active {
-            transform: translateY(0);
-        }
-
-        .link {
+        
+        .auth-footer {
             text-align: center;
-            margin-top: 20px;
-            color: #4a5568;
-            font-size: 15px;
+            margin-top: var(--space-6);
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
         }
-
-        .link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
+        
+        .auth-footer a {
+            color: var(--text-brand);
+            font-weight: var(--font-weight-semibold);
         }
-
-        .link a:hover {
+        
+        .auth-footer a:hover {
             text-decoration: underline;
         }
-
-        /* برای صفحه موبایل */
-        @media (max-width: 576px) {
-            .container {
-                padding: 25px 20px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            input[type="text"],
-            input[type="email"],
-            input[type="tel"],
-            input[type="password"] {
-                height: 44px;
-                font-size: 14px;
-                padding: 0 12px;
-            }
-
-            .password-wrapper input {
-                padding-left: 45px;
-                height: 44px;
-            }
-
-            .toggle-password {
-                font-size: 20px;
-                width: 30px;
-                height: 30px;
-                left: 10px;
-            }
-
-            button[type="submit"] {
-                height: 45px;
-                font-size: 16px;
-            }
+        
+        .alert {
+            margin-bottom: var(--space-4);
+        }
+        
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: var(--color-danger-500);
+        }
+        
+        .form-error {
+            color: var(--color-danger-500);
+        }
+        
+        .password-hint {
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+            margin-top: var(--space-1);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-brand);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: var(--radius-full);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>📝 <span>ثبت نام</span></h2>
-
-        <?php if (!empty($errors)): ?>
-            <div class="error-box">
-                <ul>
-                    <?php foreach ($errors as $field => $error): ?>
-                        <li><?php echo htmlspecialchars($error); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <form action="register_process.php" method="POST">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-
-            <div class="form-group">
-                <label for="fullname">نام و نام خانوادگی <span class="required">*</span></label>
-                <input type="text" id="fullname" name="fullname" 
-                       class="<?php echo isset($errors['fullname']) ? 'error' : ''; ?>"
-                       placeholder="مثال: علی رضایی" 
-                       value="<?php echo htmlspecialchars($old_data['fullname'] ?? ''); ?>" 
-                       required>
-                <?php if (isset($errors['fullname'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['fullname']); ?></span>
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <a href="../index.php" class="auth-logo">
+                        <div class="auth-logo-icon">R</div>
+                        <span class="auth-logo-text">R_REX</span>
+                    </a>
+                    <h1 class="auth-title">📝 ثبت نام</h1>
+                    <p class="auth-subtitle">به خانواده R_REX خوش آمدید!</p>
+                </div>
+                
+                <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <div class="alert-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                        </div>
+                        <div class="alert-content">
+                            <div class="alert-title">خطا در ثبت نام</div>
+                            <ul style="margin:0; padding-right:1.25rem; list-style:disc;">
+                                <?php foreach ($errors as $field => $error): ?>
+                                    <li><?php echo htmlspecialchars($error); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
                 <?php endif; ?>
-            </div>
-
-            <div class="form-group">
-                <label for="username">نام کاربری <span class="required">*</span></label>
-                <input type="text" id="username" name="username" 
-                       class="<?php echo isset($errors['username']) ? 'error' : ''; ?>"
-                       placeholder="فقط حروف انگلیسی و اعداد" 
-                       value="<?php echo htmlspecialchars($old_data['username'] ?? ''); ?>" 
-                       required>
-                <?php if (isset($errors['username'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['username']); ?></span>
-                <?php endif; ?>
-            </div>
-
-            <div class="form-group">
-                <label for="email">ایمیل <span class="required">*</span></label>
-                <input type="email" id="email" name="email" 
-                       class="<?php echo isset($errors['email']) ? 'error' : ''; ?>"
-                       placeholder="example@email.com" 
-                       value="<?php echo htmlspecialchars($old_data['email'] ?? ''); ?>" 
-                       required>
-                <?php if (isset($errors['email'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['email']); ?></span>
-                <?php endif; ?>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">شماره موبایل</label>
-                <input type="tel" id="phone" name="phone" 
-                       class="<?php echo isset($errors['phone']) ? 'error' : ''; ?>"
-                       placeholder="مثال: 09121234567" 
-                       value="<?php echo htmlspecialchars($old_data['phone'] ?? ''); ?>">
-                <?php if (isset($errors['phone'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['phone']); ?></span>
-                <?php endif; ?>
-            </div>
-
-            <div class="form-group">
-                <label for="password">رمز عبور <span class="required">*</span></label>
-                <div class="password-wrapper">
-                    <input type="password" id="password" name="password" 
-                           class="<?php echo isset($errors['password']) ? 'error' : ''; ?>"
-                           placeholder="حداقل ۸ کاراکتر" 
-                           required minlength="8">
-                    <button type="button" class="toggle-password" onclick="togglePassword('password', this)">
-                        👁️
+                
+                <form action="register_process.php" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="fullname">
+                            نام و نام خانوادگی <span class="required">*</span>
+                        </label>
+                        <input type="text" id="fullname" name="fullname" 
+                               class="form-input <?php echo isset($errors['fullname']) ? 'input-error' : ''; ?>"
+                               placeholder="مثال: علی رضایی"
+                               value="<?php echo htmlspecialchars($old_data['fullname'] ?? ''); ?>" required>
+                        <?php if (isset($errors['fullname'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['fullname']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="username">
+                            نام کاربری <span class="required">*</span>
+                        </label>
+                        <input type="text" id="username" name="username" 
+                               class="form-input <?php echo isset($errors['username']) ? 'input-error' : ''; ?>"
+                               placeholder="فقط حروف انگلیسی و اعداد"
+                               value="<?php echo htmlspecialchars($old_data['username'] ?? ''); ?>" required>
+                        <?php if (isset($errors['username'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['username']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="email">
+                            ایمیل <span class="required">*</span>
+                        </label>
+                        <input type="email" id="email" name="email" 
+                               class="form-input <?php echo isset($errors['email']) ? 'input-error' : ''; ?>"
+                               placeholder="example@email.com"
+                               value="<?php echo htmlspecialchars($old_data['email'] ?? ''); ?>" required>
+                        <?php if (isset($errors['email'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['email']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="phone">شماره موبایل</label>
+                        <input type="tel" id="phone" name="phone" 
+                               class="form-input <?php echo isset($errors['phone']) ? 'input-error' : ''; ?>"
+                               placeholder="مثال: 09121234567"
+                               value="<?php echo htmlspecialchars($old_data['phone'] ?? ''); ?>">
+                        <?php if (isset($errors['phone'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['phone']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password">
+                            رمز عبور <span class="required">*</span>
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" 
+                                   class="form-input <?php echo isset($errors['password']) ? 'input-error' : ''; ?>"
+                                   placeholder="حداقل ۸ کاراکتر" required minlength="8">
+                            <button type="button" class="toggle-password" onclick="togglePassword('password', this)">👁️</button>
+                        </div>
+                        <div class="password-hint">🔒 باید شامل حروف بزرگ، کوچک و عدد باشد.</div>
+                        <?php if (isset($errors['password'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['password']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="confirm_password">
+                            تکرار رمز عبور <span class="required">*</span>
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="confirm_password" name="confirm_password" 
+                                   class="form-input <?php echo isset($errors['confirm_password']) ? 'input-error' : ''; ?>"
+                                   placeholder="تکرار رمز عبور" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('confirm_password', this)">👁️</button>
+                        </div>
+                        <?php if (isset($errors['confirm_password'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['confirm_password']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+                        ثبت نام
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
                     </button>
+                </form>
+                
+                <div class="auth-divider">یا</div>
+                
+                <div class="auth-footer">
+                    قبلاً ثبت نام کردی؟ <a href="login.php">وارد شو</a>
                 </div>
-                <div class="password-hint">
-                    🔒 باید شامل حروف بزرگ، کوچک و عدد باشد.
-                </div>
-                <?php if (isset($errors['password'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['password']); ?></span>
-                <?php endif; ?>
             </div>
-
-            <div class="form-group">
-                <label for="confirm_password">تکرار رمز عبور <span class="required">*</span></label>
-                <div class="password-wrapper">
-                    <input type="password" id="confirm_password" name="confirm_password" 
-                           class="<?php echo isset($errors['confirm_password']) ? 'error' : ''; ?>"
-                           placeholder="تکرار رمز عبور" required>
-                    <button type="button" class="toggle-password" onclick="togglePassword('confirm_password', this)">
-                        👁️
-                    </button>
-                </div>
-                <?php if (isset($errors['confirm_password'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['confirm_password']); ?></span>
-                <?php endif; ?>
-            </div>
-
-            <button type="submit">ثبت نام</button>
-        </form>
-
-        <div class="link">
-            قبلاً ثبت نام کردی؟ <a href="login.php">وارد شو</a>
         </div>
     </div>
-
+    
     <script>
         function togglePassword(inputId, button) {
             const input = document.getElementById(inputId);
             if (input.type === 'password') {
                 input.type = 'text';
                 button.textContent = '🙈';
-                button.style.color = '#667eea';
+                button.style.color = 'var(--accent-primary)';
             } else {
                 input.type = 'password';
                 button.textContent = '👁️';
-                button.style.color = '#718096';
+                button.style.color = 'var(--text-tertiary)';
             }
         }
     </script>

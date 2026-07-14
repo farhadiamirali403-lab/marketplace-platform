@@ -1,0 +1,134 @@
+/* ============================================
+   R_REX Design System - Responsive
+   ============================================ */
+
+/* Large screens */
+@media (min-width: 1440px) {
+  .container-2xl {
+    max-width: var(--container-2xl);
+  }
+}
+
+/* Tablet landscape */
+@media (max-width: 1280px) {
+  .hide-xl { display: none !important; }
+}
+
+/* Tablet portrait */
+@media (max-width: 1024px) {
+  .hide-lg { display: none !important; }
+  
+  .sidebar-overlay {
+    position: fixed;
+    inset: 0;
+    background: var(--bg-overlay);
+    z-index: calc(var(--z-sticky) - 1);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--transition-base);
+  }
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+/* Mobile landscape */
+@media (max-width: 768px) {
+  .hide-md { display: none !important; }
+  
+  :root {
+    --navbar-height: 3.5rem;
+  }
+  
+  .page-container {
+    padding: var(--space-4) var(--space-3);
+  }
+  
+  .section {
+    padding: var(--space-10) 0;
+  }
+  
+  h1 { font-size: var(--font-size-3xl); }
+  h2 { font-size: var(--font-size-2xl); }
+  h3 { font-size: var(--font-size-xl); }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+  .hide-sm { display: none !important; }
+  
+  .btn-xl,
+  .btn-lg {
+    padding: 0.625rem 1.25rem;
+    font-size: var(--font-size-sm);
+  }
+  
+  .modal {
+    margin: var(--space-4);
+    max-height: calc(100vh - var(--space-8));
+  }
+  
+  .toast-container {
+    left: var(--space-3);
+    right: var(--space-3);
+    max-width: none;
+  }
+}
+
+/* Print */
+@media print {
+  .navbar,
+  .sidebar,
+  .toast-container,
+  .modal-overlay {
+    display: none !important;
+  }
+  
+  body {
+    background: white;
+    color: black;
+  }
+  
+  .card {
+    border: 1px solid #ddd;
+    box-shadow: none;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Hover media query */
+@media (hover: none) {
+  .product-card .product-actions {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  
+  .btn:hover {
+    transform: none;
+  }
+}
+
+/* High contrast */
+@media (forced-colors: active) {
+  .btn {
+    border: 1px solid ButtonText;
+  }
+  
+  .form-input,
+  .form-select,
+  .form-textarea {
+    border: 1px solid ButtonText;
+  }
+}

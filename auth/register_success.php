@@ -1,142 +1,315 @@
 <?php
-// register_success.php - صفحه موفقیت ثبت نام
+// auth/register_success.php - صفحه موفقیت ثبت نام با تم دارک
 
-// استارت سشن
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.use_only_cookies', 1);
-    session_start();
-}
+// چون config.php داخل خود auth هست
+require_once 'config.php';
+startSecureSession();
 
 // بررسی اینکه کاربر لاگین هست
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_logged_in'])) {
     header('Location: login.php');
     exit;
 }
 
-// دریافت اطلاعات کاربر
 $fullname = $_SESSION['fullname'] ?? 'کاربر عزیز';
 $username = $_SESSION['username'] ?? '';
+$email = $_SESSION['email'] ?? '';
+$role = $_SESSION['role'] ?? 'user';
+$role_persian = ($role === 'admin') ? 'مدیر' : 'کاربر عادی';
 ?>
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ثبت نام با موفقیت انجام شد</title>
+    <title>ثبت نام با موفقیت انجام شد | R_REX</title>
+    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    
     <style>
-        body {
-            font-family: Tahoma, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .success-page {
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            padding: var(--space-6);
+            direction: rtl;
         }
-        .container {
-            background: white;
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            text-align: center;
-            max-width: 500px;
+        
+        .success-container {
             width: 100%;
-            animation: fadeIn 0.5s ease;
+            max-width: 480px;
+            animation: fadeIn 0.6s ease;
         }
+        
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+        
+        .success-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-10);
+            text-align: center;
+            box-shadow: var(--shadow-card-hover);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
         .success-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-            animation: bounce 1s ease;
+            width: 5rem;
+            height: 5rem;
+            margin: 0 auto var(--space-6);
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: var(--color-success-500);
+            animation: pulse 2s infinite;
+            position: relative;
+            z-index: 1;
         }
-        @keyframes bounce {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.05); }
         }
-        h1 {
-            color: #2d3748;
-            margin-bottom: 10px;
+        
+        .success-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-3);
+            position: relative;
+            z-index: 1;
         }
-        .message {
-            color: #4a5568;
-            font-size: 18px;
-            line-height: 1.8;
-            margin: 20px 0;
+        
+        .success-message {
+            font-size: var(--font-size-md);
+            color: var(--text-secondary);
+            line-height: var(--line-height-relaxed);
+            margin-bottom: var(--space-6);
+            position: relative;
+            z-index: 1;
         }
-        .username {
-            color: #667eea;
-            font-weight: bold;
-            font-size: 20px;
+        
+        .success-message .highlight {
+            color: var(--text-brand);
+            font-weight: var(--font-weight-semibold);
         }
-        .btn-primary {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            margin-top: 20px;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
-        }
-        .info-box {
-            background: #f7fafc;
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
+        
+        .success-info {
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            padding: var(--space-4);
+            margin-bottom: var(--space-6);
             text-align: right;
+            border: 1px solid var(--border-secondary);
+            position: relative;
+            z-index: 1;
         }
-        .info-box p {
-            margin: 8px 0;
-            color: #4a5568;
+        
+        .success-info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: var(--space-2) 0;
+            font-size: var(--font-size-sm);
+            border-bottom: 1px solid var(--border-secondary);
         }
-        .info-box strong {
-            color: #2d3748;
+        
+        .success-info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .success-info-label {
+            color: var(--text-tertiary);
+        }
+        
+        .success-info-value {
+            color: var(--text-primary);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .success-actions {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .success-actions .btn {
+            width: 100%;
+            padding: 0.75rem 1.75rem;
+            font-size: var(--font-size-md);
+            border-radius: var(--radius-xl);
+            transition: all var(--transition-base);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-brand);
+            color: white;
+            border: none;
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: var(--text-primary);
+            border: 1px solid var(--border-primary);
+        }
+        
+        .btn-outline:hover {
+            background: var(--bg-hover);
+            border-color: var(--text-tertiary);
+        }
+        
+        .btn-success {
+            background: var(--color-success-500);
+            color: white;
+            border: none;
+        }
+        
+        .btn-success:hover {
+            background: var(--color-success-600);
+            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: var(--space-6);
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .auth-footer a {
+            color: var(--text-brand);
+            font-weight: var(--font-weight-semibold);
+            text-decoration: none;
+        }
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .back-home {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-2);
+            margin-top: var(--space-4);
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
+            text-decoration: none;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .back-home:hover {
+            color: var(--text-brand);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: var(--radius-full);
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover);
+        }
+        
+        @media (max-width: 480px) {
+            .success-card { padding: var(--space-6); }
+            .success-icon { width: 4rem; height: 4rem; font-size: 2.5rem; }
+            .success-title { font-size: var(--font-size-xl); }
+            .success-message { font-size: var(--font-size-sm); }
+            .success-info-item { font-size: var(--font-size-xs); padding: var(--space-1) 0; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="success-icon">✅</div>
-        
-        <h1>ثبت نام با موفقیت انجام شد! 🎉</h1>
-        
-        <div class="message">
-            سلام <span class="username"><?php echo htmlspecialchars($fullname); ?></span> عزیز!<br>
-            به خانواده ما خوش آمدی! 🥳
+    <div class="success-page">
+        <div class="success-container">
+            <div class="success-card">
+                <div class="success-icon">✅</div>
+                
+                <h1 class="success-title">ثبت نام با موفقیت انجام شد! 🎉</h1>
+                
+                <p class="success-message">
+                    سلام <span class="highlight"><?php echo htmlspecialchars($fullname); ?></span> عزیز!<br>
+                    به خانواده R_REX خوش آمدی! 🥳
+                </p>
+                
+                <div class="success-info">
+                    <div class="success-info-item">
+                        <span class="success-info-label">👤 نام و نام خانوادگی</span>
+                        <span class="success-info-value"><?php echo htmlspecialchars($fullname); ?></span>
+                    </div>
+                    <div class="success-info-item">
+                        <span class="success-info-label">🔑 نام کاربری</span>
+                        <span class="success-info-value"><?php echo htmlspecialchars($username); ?></span>
+                    </div>
+                    <div class="success-info-item">
+                        <span class="success-info-label">📧 ایمیل</span>
+                        <span class="success-info-value"><?php echo htmlspecialchars($email); ?></span>
+                    </div>
+                    <div class="success-info-item">
+                        <span class="success-info-label">📅 تاریخ ثبت نام</span>
+                        <span class="success-info-value"><?php echo date('Y/m/d - H:i'); ?></span>
+                    </div>
+                    <div class="success-info-item">
+                        <span class="success-info-label">🎯 نقش</span>
+                        <span class="success-info-value"><?php echo $role_persian; ?></span>
+                    </div>
+                </div>
+                
+                <div class="success-actions">
+                    <a href="../index.php" class="btn btn-primary btn-lg">🏠 رفتن به صفحه اصلی</a>
+                    <a href="../pages/dashboard.php" class="btn btn-outline btn-lg">📊 رفتن به داشبورد</a>
+                    <a href="../pages/shop.php" class="btn btn-success btn-lg">🛒 شروع خرید</a>
+                </div>
+                
+                <div class="auth-footer">
+                    <a href="logout.php">🚪 خروج از حساب</a>
+                    <span style="color: var(--text-tertiary); margin: 0 var(--space-2);">|</span>
+                    <a href="../pages/profile.php">👤 پروفایل</a>
+                </div>
+                
+                <a href="javascript:history.back()" class="back-home">← بازگشت به صفحه قبل</a>
+            </div>
         </div>
-        
-        <div class="info-box">
-            <p><strong>👤 نام کاربری:</strong> <?php echo htmlspecialchars($username); ?></p>
-            <p><strong>📅 تاریخ ثبت نام:</strong> <?php echo date('Y/m/d - H:i'); ?></p>
-            <p><strong>🎯 نقش:</strong> کاربر عادی</p>
-        </div>
-        
-        <p style="color: #718096; font-size: 14px;">
-            حساب کاربری شما با موفقیت ساخته شد.<br>
-            اکنون میتوانید از تمام امکانات سایت استفاده کنید.
-        </p>
-        
-        <a href="../index.html" class="btn-primary">
-            🏠 رفتن به صفحه اصلی
-        </a>
-        
-        <br><br>
-        <a href="profile.php" style="color: #667eea; text-decoration: none; font-size: 14px;">
-            📝 رفتن به پروفایل
-        </a>
     </div>
 </body>
 </html>

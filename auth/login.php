@@ -1,406 +1,345 @@
 <?php
-// login.php - صفحه ورود
+// auth/login.php - صفحه ورود با تم دارک
 
-// استارت سشن
-if (session_status() === PHP_SESSION_NONE) {
-    ini_set('session.cookie_httponly', 1);
-    ini_set('session.use_only_cookies', 1);
-    session_start();
-}
-
-// تابع تولید توکن CSRF
-function generateCsrfToken() {
-    if (empty($_SESSION['csrf_token'])) {
-        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-    }
-    return $_SESSION['csrf_token'];
-}
+// چون config.php داخل خود auth هست
+require_once 'config.php';
+startSecureSession();
 
 $csrf_token = generateCsrfToken();
 
-// دریافت خطاها از سشن
 $errors = $_SESSION['login_errors'] ?? [];
 $old_data = $_SESSION['login_data'] ?? [];
 
-// پاک کردن سشن بعد از خواندن
 unset($_SESSION['login_errors']);
 unset($_SESSION['login_data']);
 ?>
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ورود به حساب</title>
+    <title>ورود به حساب | R_REX</title>
+    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    
     <style>
-        /* reset css */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Tahoma, Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        .auth-page {
             min-height: 100vh;
-            padding: 20px;
-            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            padding: var(--space-6);
+            direction: rtl;
         }
-
-        .container {
-            background: #ffffff;
-            padding: 40px 35px;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        
+        .auth-container {
             width: 100%;
-            max-width: 450px;
+            max-width: 440px;
             animation: fadeIn 0.5s ease;
         }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        
+        .auth-card {
+            background: var(--surface-card);
+            border: 1px solid var(--border-card);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            box-shadow: var(--shadow-card-hover);
         }
-
-        h2 {
+        
+        .auth-header {
             text-align: center;
-            color: #2d3748;
-            margin-bottom: 25px;
-            font-size: 28px;
+            margin-bottom: var(--space-8);
         }
-
-        h2 span {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        
+        .auth-logo {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            text-decoration: none;
+            margin-bottom: var(--space-4);
         }
-
-        .error-box {
-            background: #fed7d7;
-            border: 2px solid #fc8181;
-            color: #c53030;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        
+        .auth-logo-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--gradient-brand);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: var(--font-weight-bold);
+            font-size: var(--font-size-lg);
         }
-
-        .error-box ul {
-            margin: 0;
-            padding-right: 20px;
-            list-style: none;
+        
+        .auth-logo-text {
+            font-size: var(--font-size-xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
         }
-
-        .error-box li {
-            padding: 5px 0;
+        
+        .auth-title {
+            font-size: var(--font-size-2xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+            margin-bottom: var(--space-2);
         }
-
-        .error-box li::before {
-            content: "❌ ";
+        
+        .auth-subtitle {
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
         }
-
-        .form-group {
-            margin-bottom: 18px;
-            width: 100%;
+        
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            margin: var(--space-6) 0;
+            color: var(--text-tertiary);
+            font-size: var(--font-size-xs);
         }
-
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #2d3748;
-            font-size: 14px;
+        
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-primary);
         }
-
-        label .required {
-            color: #e53e3e;
-        }
-
-        /* استایل اینپوت‌ها */
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            height: 48px;
-            padding: 0 15px;
-            border: 2px solid #e2e8f0;
-            border-radius: 8px;
-            font-size: 15px;
-            font-family: Tahoma, Arial, sans-serif;
-            transition: all 0.3s ease;
-            background: #f7fafc;
-            direction: ltr;
-            display: block;
-        }
-
-        input[type="text"]:focus,
-        input[type="password"]:focus {
-            outline: none;
-            border-color: #667eea;
-            background: #ffffff;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15);
-        }
-
-        input[type="text"].error,
-        input[type="password"].error {
-            border-color: #fc8181;
-            background: #fff5f5;
-        }
-
-        /* wrapper برای رمز عبور */
+        
         .password-wrapper {
             position: relative;
             width: 100%;
-            display: flex;
-            align-items: center;
         }
-
-        .password-wrapper input {
-            padding-left: 50px;
-            height: 48px;
+        
+        .password-wrapper .form-input {
+            padding-left: 3rem;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            border-color: var(--border-input);
         }
-
+        
+        .password-wrapper .form-input:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+            background: var(--bg-primary);
+        }
+        
         .toggle-password {
             position: absolute;
-            left: 12px;
+            left: 0.75rem;
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 22px;
-            padding: 0;
-            width: 35px;
-            height: 35px;
+            font-size: 1.25rem;
+            padding: 0.25rem;
+            color: var(--text-tertiary);
+            transition: all var(--transition-fast);
+            border-radius: var(--radius-md);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #718096;
-            transition: all 0.2s ease;
-            border-radius: 50%;
-            user-select: none;
+            width: 2rem;
+            height: 2rem;
         }
-
+        
         .toggle-password:hover {
-            background: #edf2f7;
-            color: #667eea;
-            transform: translateY(-50%) scale(1.1);
+            color: var(--text-primary);
+            background: var(--bg-hover);
         }
-
-        .toggle-password:active {
-            transform: translateY(-50%) scale(0.9);
+        
+        .auth-footer {
+            text-align: center;
+            margin-top: var(--space-6);
+            font-size: var(--font-size-sm);
+            color: var(--text-secondary);
         }
-
-        .error-text {
-            color: #e53e3e;
-            font-size: 13px;
-            margin-top: 6px;
-            display: block;
+        
+        .auth-footer a {
+            color: var(--text-brand);
+            font-weight: var(--font-weight-semibold);
         }
-
-        .remember-me {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
+        
+        .auth-footer a:hover {
+            text-decoration: underline;
         }
-
-        .remember-me input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #667eea;
+        
+        .auth-extra {
+            text-align: center;
+            margin-top: var(--space-4);
         }
-
-        .remember-me label {
-            font-weight: normal;
-            cursor: pointer;
-            margin: 0;
-            font-size: 15px;
-            color: #4a5568;
+        
+        .auth-extra a {
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
         }
-
-        button[type="submit"] {
-            width: 100%;
-            height: 50px;
-            padding: 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #ffffff;
+        
+        .auth-extra a:hover {
+            color: var(--text-brand);
+        }
+        
+        .alert {
+            margin-bottom: var(--space-4);
+        }
+        
+        .alert-danger {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.2);
+            color: var(--color-danger-500);
+        }
+        
+        .form-error {
+            color: var(--color-danger-500);
+        }
+        
+        .btn-primary {
+            background: var(--gradient-brand);
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: Tahoma, Arial, sans-serif;
         }
-
-        button[type="submit"]:hover {
+        
+        .btn-primary:hover {
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.4);
             transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
         }
-
-        button[type="submit"]:active {
-            transform: translateY(0);
+        
+        input[type="checkbox"] {
+            accent-color: var(--accent-primary);
+            width: 1.125rem;
+            height: 1.125rem;
+            cursor: pointer;
         }
-
-        .link {
-            text-align: center;
-            margin-top: 15px;
-            color: #4a5568;
-            font-size: 15px;
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
         }
-
-        .link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: bold;
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
         }
-
-        .link a:hover {
-            text-decoration: underline;
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: var(--radius-full);
         }
-
-        .forgot-password {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .forgot-password a {
-            color: #718096;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .forgot-password a:hover {
-            text-decoration: underline;
-        }
-
-        /* برای صفحه موبایل */
-        @media (max-width: 576px) {
-            .container {
-                padding: 25px 20px;
-            }
-
-            h2 {
-                font-size: 24px;
-            }
-
-            input[type="text"],
-            input[type="password"] {
-                height: 44px;
-                font-size: 14px;
-                padding: 0 12px;
-            }
-
-            .password-wrapper input {
-                padding-left: 45px;
-                height: 44px;
-            }
-
-            .toggle-password {
-                font-size: 20px;
-                width: 30px;
-                height: 30px;
-                left: 10px;
-            }
-
-            button[type="submit"] {
-                height: 45px;
-                font-size: 16px;
-            }
-
-            .remember-me input[type="checkbox"] {
-                width: 16px;
-                height: 16px;
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--scrollbar-thumb-hover);
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>🔐 <span>ورود به حساب</span></h2>
-
-        <?php if (!empty($errors)): ?>
-            <div class="error-box">
-                <ul>
-                    <?php foreach ($errors as $field => $error): ?>
-                        <li><?php echo htmlspecialchars($error); ?></li>
-                    <?php endforeach; ?>
-                </ul>
-            </div>
-        <?php endif; ?>
-
-        <form action="login_process.php" method="POST">
-            <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-
-            <div class="form-group">
-                <label for="username">نام کاربری یا ایمیل <span class="required">*</span></label>
-                <input type="text" id="username" name="username" 
-                       class="<?php echo isset($errors['username']) ? 'error' : ''; ?>"
-                       placeholder="نام کاربری یا ایمیل خود را وارد کنید" 
-                       value="<?php echo htmlspecialchars($old_data['username'] ?? ''); ?>" 
-                       required>
-                <?php if (isset($errors['username'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['username']); ?></span>
-                <?php endif; ?>
-            </div>
-
-            <div class="form-group">
-                <label for="password">رمز عبور <span class="required">*</span></label>
-                <div class="password-wrapper">
-                    <input type="password" id="password" name="password" 
-                           class="<?php echo isset($errors['password']) ? 'error' : ''; ?>"
-                           placeholder="رمز عبور خود را وارد کنید" required>
-                    <button type="button" class="toggle-password" onclick="togglePassword('password', this)">
-                        👁️
-                    </button>
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <a href="../index.php" class="auth-logo">
+                        <div class="auth-logo-icon">R</div>
+                        <span class="auth-logo-text">R_REX</span>
+                    </a>
+                    <h1 class="auth-title">🔐 ورود به حساب</h1>
+                    <p class="auth-subtitle">خوش آمدید! لطفاً اطلاعات خود را وارد کنید</p>
                 </div>
-                <?php if (isset($errors['password'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['password']); ?></span>
+                
+                <?php if (!empty($errors)): ?>
+                    <div class="alert alert-danger">
+                        <div class="alert-icon">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <line x1="12" y1="8" x2="12" y2="12"/>
+                                <line x1="12" y1="16" x2="12.01" y2="16"/>
+                            </svg>
+                        </div>
+                        <div class="alert-content">
+                            <div class="alert-title">خطا در ورود</div>
+                            <ul style="margin:0; padding-right:1.25rem; list-style:disc;">
+                                <?php foreach ($errors as $field => $error): ?>
+                                    <li><?php echo htmlspecialchars($error); ?></li>
+                                <?php endforeach; ?>
+                            </ul>
+                        </div>
+                    </div>
                 <?php endif; ?>
-                <?php if (isset($errors['general'])): ?>
-                    <span class="error-text"><?php echo htmlspecialchars($errors['general']); ?></span>
-                <?php endif; ?>
+                
+                <form action="login_process.php" method="POST">
+                    <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="username">
+                            نام کاربری یا ایمیل <span class="required">*</span>
+                        </label>
+                        <input type="text" id="username" name="username" 
+                               class="form-input <?php echo isset($errors['username']) ? 'input-error' : ''; ?>"
+                               placeholder="نام کاربری یا ایمیل خود را وارد کنید"
+                               value="<?php echo htmlspecialchars($old_data['username'] ?? ''); ?>" required autofocus>
+                        <?php if (isset($errors['username'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['username']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="password">
+                            رمز عبور <span class="required">*</span>
+                        </label>
+                        <div class="password-wrapper">
+                            <input type="password" id="password" name="password" 
+                                   class="form-input <?php echo isset($errors['password']) ? 'input-error' : ''; ?>"
+                                   placeholder="رمز عبور خود را وارد کنید" required>
+                            <button type="button" class="toggle-password" onclick="togglePassword('password', this)">👁️</button>
+                        </div>
+                        <?php if (isset($errors['password'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['password']); ?></span>
+                        <?php endif; ?>
+                        <?php if (isset($errors['general'])): ?>
+                            <span class="form-error"><?php echo htmlspecialchars($errors['general']); ?></span>
+                        <?php endif; ?>
+                    </div>
+                    
+                    <div class="form-group" style="flex-direction:row; align-items:center; gap:var(--space-3);">
+                        <input type="checkbox" id="remember" name="remember" value="1">
+                        <label for="remember" style="font-weight:normal; cursor:pointer; font-size:var(--font-size-sm); color:var(--text-secondary);">
+                            مرا به خاطر بسپار
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">
+                        ورود
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </button>
+                </form>
+                
+                <div class="auth-extra">
+                    <a href="forgot_password.php">🔑 رمز عبور را فراموش کردی؟</a>
+                </div>
+                
+                <div class="auth-divider">یا</div>
+                
+                <div class="auth-footer">
+                    حساب نداری؟ <a href="register.php">ثبت نام کن</a>
+                </div>
             </div>
-
-            <div class="remember-me">
-                <input type="checkbox" id="remember" name="remember" value="1">
-                <label for="remember">مرا به خاطر بسپار</label>
-            </div>
-
-            <button type="submit">ورود</button>
-        </form>
-
-        <div class="forgot-password">
-            <a href="forgot_password.php">🔑 رمز عبور را فراموش کردی؟</a>
-        </div>
-
-        <div class="link">
-            حساب نداری؟ <a href="register.php">ثبت نام کن</a>
         </div>
     </div>
-
+    
     <script>
         function togglePassword(inputId, button) {
             const input = document.getElementById(inputId);
             if (input.type === 'password') {
                 input.type = 'text';
                 button.textContent = '🙈';
-                button.style.color = '#667eea';
+                button.style.color = 'var(--accent-primary)';
             } else {
                 input.type = 'password';
                 button.textContent = '👁️';
-                button.style.color = '#718096';
+                button.style.color = 'var(--text-tertiary)';
             }
         }
     </script>
