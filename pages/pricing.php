@@ -1,235 +1,335 @@
+<?php
+// pages/pricing.php - صفحه اشتراک‌ها
+
+require_once 'header.php';
+
+$page_title = "اشتراک‌ها | R_REX";
+$page_description = "پلن‌های اشتراک ویژه R_REX";
+?>
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="arctic">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>اشتراک‌ها | R_REX</title>
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-  <link rel="stylesheet" href="../css/variables.css">
-  <link rel="stylesheet" href="../css/base.css">
-  <link rel="stylesheet" href="../css/components.css">
-  <link rel="stylesheet" href="../css/layout.css">
-  <link rel="stylesheet" href="../css/pages.css">
-  <link rel="stylesheet" href="../css/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $page_title; ?></title>
+    <meta name="description" content="<?php echo $page_description; ?>">
+    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        .pricing-hero {
+            text-align: center;
+            padding: var(--space-12) 0;
+        }
+        
+        .pricing-hero h1 {
+            margin-bottom: var(--space-2);
+        }
+        
+        .pricing-hero p {
+            max-width: 32rem;
+            margin: 0 auto;
+            color: var(--text-secondary);
+        }
+        
+        .pricing-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-3);
+            background: var(--bg-tertiary);
+            padding: 0.375rem;
+            border-radius: var(--radius-full);
+            margin-top: var(--space-4);
+        }
+        
+        .pricing-toggle .btn {
+            padding: 0.5rem 1.5rem;
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-sm);
+        }
+        
+        .pricing-toggle .btn.active {
+            background: var(--accent-primary);
+            color: white;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 1px var(--accent-primary), var(--shadow-card-hover);
+            transform: scale(1.02);
+        }
+        
+        .pricing-card.featured::before {
+            content: '⭐ محبوب‌ترین';
+            position: absolute;
+            top: -0.75rem;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.25rem 1.5rem;
+            background: var(--accent-primary);
+            color: white;
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-semibold);
+            border-radius: var(--radius-full);
+            white-space: nowrap;
+        }
+        
+        .pricing-price .price-amount {
+            font-size: var(--font-size-4xl);
+            font-weight: var(--font-weight-bold);
+            color: var(--text-primary);
+        }
+        
+        .pricing-price .price-period {
+            font-size: var(--font-size-sm);
+            color: var(--text-tertiary);
+        }
+        
+        .pricing-feature .check {
+            width: 1.25rem;
+            height: 1.25rem;
+            color: var(--color-success-500);
+            flex-shrink: 0;
+        }
+        
+        .pricing-feature.disabled .check {
+            color: var(--text-tertiary);
+        }
+        
+        .pricing-feature.disabled {
+            color: var(--text-tertiary);
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="navbar-inner">
-      <a href="../index.html" class="navbar-brand">
-        <div class="navbar-logo">R</div>
-        <span class="navbar-brand-text">R_REX</span>
-      </a>
-      <div class="navbar-nav hide-md">
-        <a href="../index.php" class="nav-link">خانه</a>
-        <a href="shop.php" class="nav-link">فروشگاه</a>
-        <a href="freelance.php" class="nav-link">فریلنسری</a>
-        <a href="courses.php" class="nav-link">آموزش‌ها</a>
-        <a href="community.php" class="nav-link">انجمن</a>
-        <a href="pricing.php" class="nav-link active">اشتراک‌ها</a>
-      </div>
-      <div class="navbar-actions">
-        <button class="theme-toggle"></button>
-        <div class="notification-bell">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+
+<!-- Breadcrumb -->
+<div class="page-container" style="padding-top: calc(var(--navbar-height) + var(--space-4))">
+    <nav class="breadcrumb">
+        <span class="breadcrumb-item"><a href="../index.php">خانه</a></span>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item active">اشتراک‌ها</span>
+    </nav>
+</div>
+
+<!-- Pricing Hero -->
+<div class="page-container">
+    <div class="pricing-hero">
+        <h1 style="font-size: var(--font-size-3xl);">
+            💎 پلن‌های اشتراک R_REX
+        </h1>
+        <p style="font-size: var(--font-size-md);">
+            پلن‌های متنوع با امکانات ویژه برای هر نیاز
+        </p>
+        
+        <?php if ($is_logged_in): ?>
+            <div style="margin-top: var(--space-3);">
+                <span style="background: rgba(16, 185, 129, 0.15); padding: 0.25rem 1.25rem; border-radius: var(--radius-full); font-size: var(--font-size-sm); color: var(--color-success-500);">
+                    ✅ <?php echo htmlspecialchars($user_fullname); ?> عزیز، شما مشترک پلن رایگان هستید
+                </span>
+            </div>
+        <?php endif; ?>
+        
+        <div class="pricing-toggle">
+            <button class="btn active" onclick="togglePricing('monthly')">ماهانه</button>
+            <button class="btn" onclick="togglePricing('yearly')">سالیانه <span class="badge badge-success" style="font-size:0.625rem;">۲۰٪ تخفیف</span></button>
         </div>
-        <div class="navbar-user"><div class="navbar-user-avatar">ع</div></div>
-        <button class="mobile-menu-toggle">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Hero -->
-  <section style="padding: calc(var(--navbar-height) + var(--space-12)) 0 var(--space-12); background: var(--bg-secondary)">
-    <div class="page-container text-center">
-      <div class="section-badge" style="margin-bottom:var(--space-4)">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        اشتراک‌ها
-      </div>
-      <h1 style="font-size:var(--font-size-4xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-3)">پلن مناسب خود را انتخاب کنید</h1>
-      <p style="font-size:var(--font-size-lg);color:var(--text-secondary);max-width:32rem;margin:0 auto">
-        با اشتراک R_REX از امکانات ویژه، تخفیف‌های اختصاصی و پشتیبانی 우선 بهره‌مند شوید.
-      </p>
-    </div>
-  </section>
-
-  <!-- Pricing Cards -->
-  <div class="page-container">
-    <!-- Billing Toggle -->
-    <div class="flex justify-center items-center gap-4" style="margin:var(--space-6) 0 var(--space-10)">
-      <span class="text-sm font-medium">ماهانه</span>
-      <label class="toggle">
-        <input type="checkbox" checked>
-        <span class="toggle-slider"></span>
-      </label>
-      <span class="text-sm font-medium">سالانه <span class="badge badge-success" style="margin-right:var(--space-1)">۲۰٪ تخفیف</span></span>
     </div>
 
-    <div class="pricing-grid">
-      <!-- Free -->
-      <div class="pricing-card">
-        <div class="pricing-name">رایگان</div>
-        <div class="pricing-desc">برای شروع کار</div>
-        <div class="pricing-price">رایگان</div>
-        <div class="pricing-period">برای همیشه</div>
-        <div class="pricing-features">
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            دسترسی به فروشگاه
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            ۳ پروژه فریلنسری
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            کیف پول پایه
-          </div>
-          <div class="pricing-feature disabled">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            کش‌بک
-          </div>
-          <div class="pricing-feature disabled">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            پشتیبانی اولویت‌دار
-          </div>
+    <!-- Pricing Grid -->
+    <div class="pricing-grid" style="display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-6); align-items:start;">
+        
+        <!-- Plan 1: Free -->
+        <div class="pricing-card">
+            <div class="pricing-name">رایگان</div>
+            <div class="pricing-desc">برای شروع و آشنایی با پلتفرم</div>
+            <div class="pricing-price">
+                <span class="price-amount">۰</span>
+                <span class="price-period">تومان</span>
+            </div>
+            <div class="pricing-features">
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    دسترسی به محصولات رایگان
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    ۳ دانلود رایگان در ماه
+                </div>
+                <div class="pricing-feature disabled">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    پشتیبانی اختصاصی
+                </div>
+                <div class="pricing-feature disabled">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    تخفیف ویژه
+                </div>
+            </div>
+            <button class="btn btn-outline" style="width:100%;">شروع کنید</button>
         </div>
-        <button class="btn btn-outline w-full">پلن فعلی شما</button>
-      </div>
 
-      <!-- Plus -->
-      <div class="pricing-card">
-        <div class="pricing-name">پلاس</div>
-        <div class="pricing-desc">برای کاربران فعال</div>
-        <div class="pricing-price">۱۹۹,۰۰۰ <span>تومان/ماه</span></div>
-        <div class="pricing-period">یا ۱,۵۹۰,۰۰۰ تومان سالانه</div>
-        <div class="pricing-features">
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            همه امکانات رایگان
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            پروژه‌های نامحدود
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            ۵٪ کش‌بک
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            پشتیبانی ایمیلی
-          </div>
-          <div class="pricing-feature disabled">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            پشتیبانی تلفنی
-          </div>
+        <!-- Plan 2: Basic -->
+        <div class="pricing-card">
+            <div class="pricing-name">پایه</div>
+            <div class="pricing-desc">مناسب برای کاربران حرفه‌ای</div>
+            <div class="pricing-price">
+                <span class="price-amount">۱۹۹</span>
+                <span class="price-period">هزار تومان/ماه</span>
+            </div>
+            <div class="pricing-features">
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    دسترسی به همه محصولات
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    دانلود نامحدود
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    پشتیبانی ۲۴/۷
+                </div>
+                <div class="pricing-feature disabled">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    تخفیف ویژه
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;">خرید اشتراک</button>
         </div>
-        <button class="btn btn-primary w-full">انتخاب پلاس</button>
-      </div>
 
-      <!-- Pro -->
-      <div class="pricing-card featured">
-        <div class="pricing-name">حرفه‌ای</div>
-        <div class="pricing-desc">برای حرفه‌ای‌ها</div>
-        <div class="pricing-price">۴۹۹,۰۰۰ <span>تومان/ماه</span></div>
-        <div class="pricing-period">یا ۳,۹۹۰,۰۰۰ تومان سالانه</div>
-        <div class="pricing-features">
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            همه امکانات پلاس
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            ۱۰٪ کش‌بک
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            پشتیبانی تلفنی
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            دسترسی زودهنگام
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            نشان ویژه پروفایل
-          </div>
+        <!-- Plan 3: Pro (Featured) -->
+        <div class="pricing-card featured">
+            <div class="pricing-name">حرفه‌ای</div>
+            <div class="pricing-desc">بهترین انتخاب برای تیم‌ها</div>
+            <div class="pricing-price">
+                <span class="price-amount">۳۹۹</span>
+                <span class="price-period">هزار تومان/ماه</span>
+            </div>
+            <div class="pricing-features">
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    همه امکانات پلن پایه
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    تخفیف ۲۰٪ روی همه محصولات
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    پشتیبانی VIP
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    دسترسی به دوره‌های ویژه
+                </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;">خرید اشتراک</button>
         </div>
-        <button class="btn btn-gradient w-full">انتخاب حرفه‌ای</button>
-      </div>
 
-      <!-- Business -->
-      <div class="pricing-card">
-        <div class="pricing-name">کسب‌وکار</div>
-        <div class="pricing-desc">برای تیم‌ها و شرکت‌ها</div>
-        <div class="pricing-price">۹۹۹,۰۰۰ <span>تومان/ماه</span></div>
-        <div class="pricing-period">یا ۷,۹۹۰,۰۰۰ تومان سالانه</div>
-        <div class="pricing-features">
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            همه امکانات حرفه‌ای
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            ۱۵٪ کش‌بک
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            مدیر حساب اختصاصی
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            API اختصاصی
-          </div>
-          <div class="pricing-feature">
-            <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
-            چند کاربره
-          </div>
+        <!-- Plan 4: Enterprise -->
+        <div class="pricing-card">
+            <div class="pricing-name">سازمانی</div>
+            <div class="pricing-desc">راهکار کامل برای سازمان‌ها</div>
+            <div class="pricing-price">
+                <span class="price-amount">۷۹۹</span>
+                <span class="price-period">هزار تومان/ماه</span>
+            </div>
+            <div class="pricing-features">
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    همه امکانات پلن حرفه‌ای
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    تیم اختصاصی پشتیبانی
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    مشاوره استراتژی
+                </div>
+                <div class="pricing-feature">
+                    <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                    API و سفارشی‌سازی
+                </div>
+            </div>
+            <button class="btn btn-outline" style="width:100%;">تماس با ما</button>
         </div>
-        <button class="btn btn-outline w-full">تماس با فروش</button>
-      </div>
     </div>
 
-    <!-- FAQ -->
-    <div style="max-width:48rem;margin:var(--space-16) auto 0">
-      <h2 style="font-size:var(--font-size-2xl);font-weight:var(--font-weight-bold);text-align:center;margin-bottom:var(--space-8)">سوالات متداول اشتراک</h2>
-
-      <div class="accordion">
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <span class="accordion-title">آیا می‌توانم در هر زمان اشتراک خود را لغو کنم؟</span>
-            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="accordion-body">
-            <div class="accordion-content">بله، شما می‌توانید در هر زمان اشتراک خود را لغو کنید. اشتراک تا پایان دوره پرداخت شده فعال باقی می‌ماند.</div>
-          </div>
+    <!-- FAQ Section -->
+    <div style="margin-top: var(--space-16);">
+        <h2 style="text-align:center; font-size: var(--font-size-2xl); margin-bottom: var(--space-8);">سوالات متداول</h2>
+        <div style="max-width: 48rem; margin: 0 auto; display:flex; flex-direction:column; gap:var(--space-3);">
+            <div class="accordion-item" style="cursor:pointer;" onclick="toggleAccordion(this)">
+                <div class="accordion-header">
+                    <span class="accordion-title">آیا میتوانم پلن خود را تغییر دهم؟</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        بله، شما میتوانید در هر زمان پلن اشتراک خود را تغییر دهید. تغییرات در صورت پرداخت تفاوت قیمت اعمال میشود.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item" style="cursor:pointer;" onclick="toggleAccordion(this)">
+                <div class="accordion-header">
+                    <span class="accordion-title">آیا امکان لغو اشتراک وجود دارد؟</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        بله، شما میتوانید اشتراک خود را در هر زمان لغو کنید. در صورت لغو، دسترسی شما تا پایان دوره فعال باقی میماند.
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item" style="cursor:pointer;" onclick="toggleAccordion(this)">
+                <div class="accordion-header">
+                    <span class="accordion-title">روش‌های پرداخت چیست؟</span>
+                    <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+                </div>
+                <div class="accordion-body">
+                    <div class="accordion-content">
+                        ما از تمام روش‌های پرداخت آنلاین شامل کارت‌های بانکی، کیف پول الکترونیکی و انتقال بانکی پشتیبانی میکنیم.
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <span class="accordion-title">آیا امکان ارتقا پلن وجود دارد؟</span>
-            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="accordion-body">
-            <div class="accordion-content">بله، در هر زمان می‌توانید پلن خود را ارتقا دهید. مابه‌التفاوت بر اساس باقی‌مانده دوره فعلی محاسبه می‌شود.</div>
-          </div>
-        </div>
-        <div class="accordion-item">
-          <div class="accordion-header">
-            <span class="accordion-title">روش‌های پرداخت پذیرفته شده کدامند؟</span>
-            <svg class="accordion-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="accordion-body">
-            <div class="accordion-content">ما درگاه‌های پرداخت بانکی، کارت به کارت و کیف پول داخلی را می‌پذیریم. پرداخت از طریق درگاه آنلاین انجام می‌شود.</div>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <script src="../js/theme.js"></script>
-  <script src="../js/components.js"></script>
-  <script src="../js/app.js"></script>
+<script src="../js/theme.js"></script>
+<script src="../js/components.js"></script>
+<script src="../js/app.js"></script>
+
+<script>
+    function togglePricing(type) {
+        document.querySelectorAll('.pricing-toggle .btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.pricing-toggle .btn:first-child`).classList.toggle('active', type === 'monthly');
+        document.querySelector(`.pricing-toggle .btn:last-child`).classList.toggle('active', type === 'yearly');
+        // اینجا میتونی قیمت‌ها رو تغییر بدی
+        if (type === 'yearly') {
+            document.querySelectorAll('.pricing-card:not(:first-child) .price-amount').forEach((el, i) => {
+                const prices = [159, 319, 639];
+                el.textContent = prices[i];
+            });
+        } else {
+            document.querySelectorAll('.pricing-card:not(:first-child) .price-amount').forEach((el, i) => {
+                const prices = [199, 399, 799];
+                el.textContent = prices[i];
+            });
+        }
+    }
+    
+    function toggleAccordion(item) {
+        item.classList.toggle('active');
+    }
+</script>
+
 </body>
 </html>

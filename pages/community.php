@@ -1,226 +1,321 @@
+<?php
+// pages/community.php - صفحه انجمن
+
+require_once 'header.php';
+
+$page_title = "انجمن | R_REX";
+$page_description = "انجمن تخصصی R_REX برای تبادل نظر";
+?>
 <!DOCTYPE html>
-<html lang="fa" dir="rtl" data-theme="arctic">
+<html lang="fa" dir="rtl" data-theme="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>انجمن | R_REX</title>
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
-  <link rel="stylesheet" href="../css/variables.css">
-  <link rel="stylesheet" href="../css/base.css">
-  <link rel="stylesheet" href="../css/components.css">
-  <link rel="stylesheet" href="../css/layout.css">
-  <link rel="stylesheet" href="../css/pages.css">
-  <link rel="stylesheet" href="../css/responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $page_title; ?></title>
+    <meta name="description" content="<?php echo $page_description; ?>">
+    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/variables.css">
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/layout.css">
+    <link rel="stylesheet" href="../css/pages.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    
+    <style>
+        .community-hero {
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+            border-radius: var(--radius-2xl);
+            padding: var(--space-8);
+            margin-bottom: var(--space-8);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .community-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 30rem;
+            height: 30rem;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .community-hero h1 {
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .community-hero p {
+            color: rgba(255,255,255,0.85);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .forum-post .forum-post-stats {
+            display: flex;
+            gap: var(--space-4);
+            font-size: var(--font-size-xs);
+            color: var(--text-tertiary);
+        }
+        
+        .forum-post .forum-post-stats span {
+            display: flex;
+            align-items: center;
+            gap: var(--space-1);
+        }
+        
+        .forum-category-badge {
+            display: inline-block;
+            padding: 0.125rem 0.625rem;
+            border-radius: var(--radius-full);
+            font-size: var(--font-size-xs);
+            font-weight: var(--font-weight-medium);
+        }
+        
+        .forum-category-badge.technical {
+            background: var(--accent-50);
+            color: var(--accent-600);
+        }
+        
+        .forum-category-badge.design {
+            background: rgba(139, 92, 246, 0.1);
+            color: #8b5cf6;
+        }
+        
+        .forum-category-badge.marketing {
+            background: rgba(245, 158, 11, 0.1);
+            color: #f59e0b;
+        }
+        
+        .forum-category-badge.freelance {
+            background: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+        }
+        
+        [data-theme="dark"] .forum-category-badge.technical {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-400);
+        }
+    </style>
 </head>
 <body>
-  <nav class="navbar">
-    <div class="navbar-inner">
-      <a href="../index.html" class="navbar-brand">
-        <div class="navbar-logo">R</div>
-        <span class="navbar-brand-text">R_REX</span>
-      </a>
-      <div class="navbar-nav hide-md">
-        <a href="../index.php" class="nav-link">خانه</a>
-        <a href="shop.php" class="nav-link">فروشگاه</a>
-        <a href="freelance.php" class="nav-link">فریلنسری</a>
-        <a href="courses.php" class="nav-link">آموزش‌ها</a>
-        <a href="community.php" class="nav-link active">انجمن</a>
-        <a href="pricing.php" class="nav-link">اشتراک‌ها</a>
-      </div>
-      <div class="navbar-actions">
-        <button class="theme-toggle"></button>
-        <div class="notification-bell">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+
+<!-- Breadcrumb -->
+<div class="page-container" style="padding-top: calc(var(--navbar-height) + var(--space-4))">
+    <nav class="breadcrumb">
+        <span class="breadcrumb-item"><a href="../index.php">خانه</a></span>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item active">انجمن</span>
+    </nav>
+</div>
+
+<!-- Hero Section -->
+<div class="page-container">
+    <div class="community-hero">
+        <h1 style="font-size: var(--font-size-3xl); margin-bottom: var(--space-2);">
+            💬 انجمن تخصصی R_REX
+        </h1>
+        <p style="font-size: var(--font-size-md); max-width: 32rem;">
+            محلی برای تبادل نظر، پرسش و پاسخ و اشتراک‌گذاری تجربیات
+        </p>
+        
+        <div style="margin-top: var(--space-4); position: relative; z-index: 1; display: flex; gap: var(--space-3); flex-wrap:wrap;">
+            <a href="#" class="btn btn-white btn-sm">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+                ایجاد موضوع جدید
+            </a>
+            <a href="#" class="btn btn-ghost-white btn-sm">
+                داغ‌ترین بحث‌ها
+            </a>
+            <?php if ($is_logged_in): ?>
+                <span style="background: rgba(255,255,255,0.15); padding: 0.25rem 1rem; border-radius: var(--radius-full); font-size: var(--font-size-sm); display: flex; align-items:center; gap:var(--space-2);">
+                    👋 <?php echo htmlspecialchars($user_fullname); ?>
+                    <span style="font-size: var(--font-size-xs); opacity:0.7;">| <?php echo $role_persian; ?></span>
+                </span>
+            <?php endif; ?>
         </div>
-        <div class="navbar-user"><div class="navbar-user-avatar">ع</div></div>
-        <button class="mobile-menu-toggle">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
-      </div>
     </div>
-  </nav>
+</div>
 
-  <section style="padding: calc(var(--navbar-height) + var(--space-12)) 0 var(--space-8); background: var(--bg-secondary)">
-    <div class="page-container">
-      <div class="page-header-row">
-        <div>
-          <h1 style="font-size:var(--font-size-3xl);font-weight:var(--font-weight-bold);margin-bottom:var(--space-2)">انجمن R_REX</h1>
-          <p style="color:var(--text-secondary)">با جامعه حرفه‌ای ما در ارتباط باشید و دانش خود را به اشتراک بگذارید.</p>
+<!-- Community Stats -->
+<div class="page-container">
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-4); margin-bottom: var(--space-8);">
+        <div class="stat-card" style="text-align:center;">
+            <div style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--text-primary);">۲,۴۵۰</div>
+            <div style="color: var(--text-tertiary); font-size: var(--font-size-sm);">موضوعات</div>
         </div>
-        <button class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          پرسش جدید
-        </button>
-      </div>
+        <div class="stat-card" style="text-align:center;">
+            <div style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--text-primary);">۱۲,۸۰۰</div>
+            <div style="color: var(--text-tertiary); font-size: var(--font-size-sm);">پاسخ‌ها</div>
+        </div>
+        <div class="stat-card" style="text-align:center;">
+            <div style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--text-primary);">۴,۲۰۰</div>
+            <div style="color: var(--text-tertiary); font-size: var(--font-size-sm);">کاربران آنلاین</div>
+        </div>
+        <div class="stat-card" style="text-align:center;">
+            <div style="font-size: var(--font-size-2xl); font-weight: var(--font-weight-bold); color: var(--text-primary);">۹۸%</div>
+            <div style="color: var(--text-tertiary); font-size: var(--font-size-sm);">رضایت کاربران</div>
+        </div>
     </div>
-  </section>
+</div>
 
-  <div class="page-container">
-    <div class="layout-two-col" style="margin-top:var(--space-6)">
-      <!-- Posts -->
-      <div>
-        <div class="flex gap-2 mb-4">
-          <button class="btn btn-secondary btn-sm">همه</button>
-          <button class="btn btn-ghost btn-sm">پرسش‌ها</button>
-          <button class="btn btn-ghost btn-sm">مقاله‌ها</button>
-          <button class="btn btn-ghost btn-sm">محبوب</button>
+<!-- Categories & Forum Posts -->
+<div class="page-container">
+    <div class="page-header">
+        <div class="page-header-row">
+            <div>
+                <h1 class="page-title">آخرین موضوعات</h1>
+                <p class="page-subtitle">جدیدترین بحث‌های انجمن</p>
+            </div>
+            <div style="display:flex; gap:var(--space-2); flex-wrap:wrap;">
+                <select class="form-select" style="width:auto;padding-left:2rem;">
+                    <option>همه دسته‌ها</option>
+                    <option>تکنیکال</option>
+                    <option>طراحی</option>
+                    <option>بازاریابی</option>
+                    <option>فریلنسری</option>
+                </select>
+                <select class="form-select" style="width:auto;padding-left:2rem;">
+                    <option>جدیدترین</option>
+                    <option>پاسخ‌دار</option>
+                    <option>بدون پاسخ</option>
+                </select>
+            </div>
         </div>
-
-        <div class="flex flex-col gap-4">
-          <div class="forum-post">
-            <div class="forum-post-header">
-              <div class="avatar avatar-md" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white">م</div>
-              <div>
-                <div class="forum-post-author">محمد رضایی</div>
-                <div class="forum-post-time">۲ ساعت پیش</div>
-              </div>
-              <span class="badge badge-primary" style="margin-right:auto">پرسش</span>
-            </div>
-            <h3 class="forum-post-title">بهترین راه یادگیری TypeScript برای توسعه‌دهندگان React</h3>
-            <p class="forum-post-excerpt">سلام دوستان. می‌خوام TypeScript رو یاد بگیرم و با React استفاده کنم. به نظرتون بهترین منبع و روش یادگیری چیه؟</p>
-            <div class="forum-post-footer">
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
-                ۲۴
-              </span>
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                ۱۲ پاسخ
-              </span>
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                ۱۵۶ مشاهده
-              </span>
-            </div>
-          </div>
-
-          <div class="forum-post">
-            <div class="forum-post-header">
-              <div class="avatar avatar-md" style="background:linear-gradient(135deg,#f093fb,#f5576c);color:white">س</div>
-              <div>
-                <div class="forum-post-author">سارا احمدی</div>
-                <div class="forum-post-time">۵ ساعت پیش</div>
-              </div>
-              <span class="badge badge-success" style="margin-right:auto">مقاله</span>
-            </div>
-            <h3 class="forum-post-title">۱۰ ابزار ضروری برای طراحان UI/UX در سال ۱۴۰۵</h3>
-            <p class="forum-post-excerpt">در این مقاله ۱۰ ابزار حرفه‌ای و ضروری برای طراحان رابط کاربری و تجربه کاربری را معرفی می‌کنم که می‌توانند بهره‌وری شما را چند برابر کنند.</p>
-            <div class="forum-post-footer">
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
-                ۵۶
-              </span>
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                ۸ پاسخ
-              </span>
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                ۳۱۲ مشاهده
-              </span>
-            </div>
-          </div>
-
-          <div class="forum-post">
-            <div class="forum-post-header">
-              <div class="avatar avatar-md" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:white">ع</div>
-              <div>
-                <div class="forum-post-author">عرفان کریمی</div>
-                <div class="forum-post-time">دیروز</div>
-              </div>
-              <span class="badge badge-primary" style="margin-right:auto">پرسش</span>
-            </div>
-            <h3 class="forum-post-title">مقایسه Node.js و Go برای پروژه‌های بزرگ</h3>
-            <p class="forum-post-excerpt">می‌خوام یک پروژه بک‌اند بزرگ شروع کنم. به نظرتون Node.js بهتره یا Go؟ مزایا و معایب هر کدوم چیه؟</p>
-            <div class="forum-post-footer">
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"/></svg>
-                ۱۸
-              </span>
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-                ۱۵ پاسخ
-              </span>
-              <span class="forum-post-stat">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-                ۴۲۰ مشاهده
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Sidebar -->
-      <aside>
-        <!-- Top Users -->
-        <div class="card" style="margin-bottom:var(--space-4)">
-          <div class="card-header">
-            <span class="card-title" style="margin:0">کاربران برتر</span>
-          </div>
-          <div class="card-body">
-            <div class="flex flex-col gap-3">
-              <div class="flex items-center gap-3">
-                <div class="avatar avatar-sm" style="background:linear-gradient(135deg,#667eea,#764ba2);color:white">م</div>
-                <div class="flex-1">
-                  <div class="text-sm font-medium">محمد رضایی</div>
-                  <div class="text-xs text-tertiary">۱,۲۵۰ امتیاز</div>
-                </div>
-                <span class="badge badge-primary">#۱</span>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="avatar avatar-sm" style="background:linear-gradient(135deg,#f093fb,#f5576c);color:white">س</div>
-                <div class="flex-1">
-                  <div class="text-sm font-medium">سارا احمدی</div>
-                  <div class="text-xs text-tertiary">۹۸۰ امتیاز</div>
-                </div>
-                <span class="badge badge-success">#۲</span>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="avatar avatar-sm" style="background:linear-gradient(135deg,#43e97b,#38f9d7);color:white">ع</div>
-                <div class="flex-1">
-                  <div class="text-sm font-medium">عرفان کریمی</div>
-                  <div class="text-xs text-tertiary">۸۵۰ امتیاز</div>
-                </div>
-                <span class="badge badge-warning">#۳</span>
-              </div>
-              <div class="flex items-center gap-3">
-                <div class="avatar avatar-sm" style="background:linear-gradient(135deg,#fa709a,#fee140);color:white">ن</div>
-                <div class="flex-1">
-                  <div class="text-sm font-medium">نیلوفر شریفی</div>
-                  <div class="text-xs text-tertiary">۷۲۰ امتیاز</div>
-                </div>
-                <span class="badge badge-neutral">#۴</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Popular Tags -->
-        <div class="card">
-          <div class="card-header">
-            <span class="card-title" style="margin:0">برچسب‌های محبوب</span>
-          </div>
-          <div class="card-body">
-            <div class="flex flex-wrap gap-2">
-              <span class="tag">React</span>
-              <span class="tag">TypeScript</span>
-              <span class="tag">UI/UX</span>
-              <span class="tag">Python</span>
-              <span class="tag">Node.js</span>
-              <span class="tag">Figma</span>
-              <span class="tag">Vue.js</span>
-              <span class="tag">Docker</span>
-              <span class="tag">Git</span>
-              <span class="tag">CSS</span>
-            </div>
-          </div>
-        </div>
-      </aside>
     </div>
-  </div>
 
-  <script src="../js/theme.js"></script>
-  <script src="../js/components.js"></script>
-  <script src="../js/app.js"></script>
+    <!-- Forum Posts -->
+    <div style="display:flex; flex-direction:column; gap:var(--space-3);">
+        <!-- Post 1 -->
+        <div class="forum-post">
+            <div class="forum-post-header">
+                <div class="forum-post-avatar" style="width:2.5rem;height:2.5rem;border-radius:var(--radius-full);background:var(--gradient-brand);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:var(--font-size-sm);">م</div>
+                <div>
+                    <div class="forum-post-author">محمد رضایی</div>
+                    <div class="forum-post-time">۲ ساعت پیش</div>
+                </div>
+                <div style="margin-right:auto;">
+                    <span class="forum-category-badge technical">تکنیکال</span>
+                </div>
+            </div>
+            <div class="forum-post-title">بهترین فریم‌ورک برای شروع پروژه‌های React در ۲۰۲۵</div>
+            <div class="forum-post-excerpt">
+                سلام دوستان! من تازه شروع به یادگیری React کردم و میخوام بدونم برای شروع یک پروژه واقعی، کدوم فریم‌ورک یا ابزار رو پیشنهاد میکنید؟ Next.js، Vite یا Create React App؟ تجربیاتتون رو به اشتراک بذارید.
+            </div>
+            <div class="forum-post-footer">
+                <div class="forum-post-stats">
+                    <span>💬 ۱۲ پاسخ</span>
+                    <span>👁️ ۸۵ بازدید</span>
+                </div>
+                <div style="display:flex; gap:var(--space-2); margin-right:auto;">
+                    <button class="btn btn-ghost btn-xs">پاسخ</button>
+                    <button class="btn btn-ghost btn-xs">ذخیره</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="forum-post">
+            <div class="forum-post-header">
+                <div class="forum-post-avatar" style="width:2.5rem;height:2.5rem;border-radius:var(--radius-full);background:linear-gradient(135deg,#f093fb,#f5576c);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:var(--font-size-sm);">س</div>
+                <div>
+                    <div class="forum-post-author">سارا احمدی</div>
+                    <div class="forum-post-time">۵ ساعت پیش</div>
+                </div>
+                <div style="margin-right:auto;">
+                    <span class="forum-category-badge design">طراحی</span>
+                </div>
+            </div>
+            <div class="forum-post-title">نحوه ایجاد سیستم طراحی در Figma</div>
+            <div class="forum-post-excerpt">
+                سلام! میخوام بدونم چطور میتونم یک سیستم طراحی جامع و مقیاس‌پذیر در Figma ایجاد کنم. دنبال راهنمایی برای ساخت components، variants و styles هستم. کسی تجربه داره؟
+            </div>
+            <div class="forum-post-footer">
+                <div class="forum-post-stats">
+                    <span>💬 ۸ پاسخ</span>
+                    <span>👁️ ۵۶ بازدید</span>
+                </div>
+                <div style="display:flex; gap:var(--space-2); margin-right:auto;">
+                    <button class="btn btn-ghost btn-xs">پاسخ</button>
+                    <button class="btn btn-ghost btn-xs">ذخیره</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="forum-post">
+            <div class="forum-post-header">
+                <div class="forum-post-avatar" style="width:2.5rem;height:2.5rem;border-radius:var(--radius-full);background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:var(--font-size-sm);">ع</div>
+                <div>
+                    <div class="forum-post-author">عرفان کریمی</div>
+                    <div class="forum-post-time">۱ روز پیش</div>
+                </div>
+                <div style="margin-right:auto;">
+                    <span class="forum-category-badge freelance">فریلنسری</span>
+                </div>
+            </div>
+            <div class="forum-post-title">چطور فریلنسر موفقی در ایران باشیم؟</div>
+            <div class="forum-post-excerpt">
+                سلام به همه! چند ماهه که به عنوان فریلنسر توی پلتفرم‌های مختلف کار میکنم. میخوام تجربیات موفقیت در فریلنسری رو با شما به اشتراک بذارم و از تجربیات شما هم استفاده کنم. چه چالش‌هایی داشتید؟
+            </div>
+            <div class="forum-post-footer">
+                <div class="forum-post-stats">
+                    <span>💬 ۲۴ پاسخ</span>
+                    <span>👁️ ۲۳۰ بازدید</span>
+                </div>
+                <div style="display:flex; gap:var(--space-2); margin-right:auto;">
+                    <button class="btn btn-ghost btn-xs">پاسخ</button>
+                    <button class="btn btn-ghost btn-xs">ذخیره</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Post 4 -->
+        <div class="forum-post">
+            <div class="forum-post-header">
+                <div class="forum-post-avatar" style="width:2.5rem;height:2.5rem;border-radius:var(--radius-full);background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:var(--font-size-sm);">ن</div>
+                <div>
+                    <div class="forum-post-author">نیلوفر شریفی</div>
+                    <div class="forum-post-time">۲ روز پیش</div>
+                </div>
+                <div style="margin-right:auto;">
+                    <span class="forum-category-badge marketing">بازاریابی</span>
+                </div>
+            </div>
+            <div class="forum-post-title">استراتژی‌های موثر برای بازاریابی محتوا</div>
+            <div class="forum-post-excerpt">
+                سلام! میخوام بدونم چه استراتژی‌هایی برای بازاریابی محتوا در سال ۲۰۲۵ موثر هستن؟ دنبال روش‌های جدید برای تولید محتوا و جذب مخاطب هستم. راهکارهای عملی رو ممنون میشم بگید.
+            </div>
+            <div class="forum-post-footer">
+                <div class="forum-post-stats">
+                    <span>💬 ۵ پاسخ</span>
+                    <span>👁️ ۴۲ بازدید</span>
+                </div>
+                <div style="display:flex; gap:var(--space-2); margin-right:auto;">
+                    <button class="btn btn-ghost btn-xs">پاسخ</button>
+                    <button class="btn btn-ghost btn-xs">ذخیره</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load More -->
+    <div class="text-center mt-8">
+        <button class="btn btn-outline btn-lg">بارگذاری بیشتر</button>
+    </div>
+</div>
+
+<script src="../js/theme.js"></script>
+<script src="../js/components.js"></script>
+<script src="../js/app.js"></script>
+
 </body>
 </html>
