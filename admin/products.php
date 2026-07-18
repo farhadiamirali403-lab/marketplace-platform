@@ -29,7 +29,6 @@ function getCategoryBadge($category) {
         'قالب اپلیکیشن' => 'badge-info',
         'طراحی UI/UX' => 'badge-purple',
         'ابزار توسعه' => 'badge-warning',
-        'آموزشی' => 'badge-success',
         'گرافیک' => 'badge-pink'
     ];
     $color = $colors[$category] ?? 'badge-secondary';
@@ -407,7 +406,6 @@ if ($result) $discount_products = $result->fetch_assoc()['total'] ?? 0;
                         <option value="قالب اپلیکیشن">قالب اپلیکیشن</option>
                         <option value="طراحی UI/UX">طراحی UI/UX</option>
                         <option value="ابزار توسعه">ابزار توسعه</option>
-                        <option value="آموزشی">آموزشی</option>
                         <option value="گرافیک">گرافیک</option>
                     </select>
                 </div>
@@ -468,7 +466,6 @@ if ($result) $discount_products = $result->fetch_assoc()['total'] ?? 0;
                         <option value="قالب اپلیکیشن">قالب اپلیکیشن</option>
                         <option value="طراحی UI/UX">طراحی UI/UX</option>
                         <option value="ابزار توسعه">ابزار توسعه</option>
-                        <option value="آموزشی">آموزشی</option>
                         <option value="گرافیک">گرافیک</option>
                     </select>
                 </div>
