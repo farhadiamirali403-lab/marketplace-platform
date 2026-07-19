@@ -264,11 +264,6 @@ $page_title = "داشبورد | R_REX";
                 <div class="action-label">فریلنسری</div>
                 <div class="action-desc">ثبت پروژه جدید</div>
             </a>
-            <a href="../pages/courses.php" class="quick-action">
-                <div class="action-icon">📚</div>
-                <div class="action-label">آموزش‌ها</div>
-                <div class="action-desc">مشاهده دوره‌ها</div>
-            </a>
             <a href="../pages/community.php" class="quick-action">
                 <div class="action-icon">💬</div>
                 <div class="action-label">انجمن</div>
@@ -305,13 +300,7 @@ $page_title = "داشبورد | R_REX";
                         <div class="activity-time">۱ روز پیش</div>
                     </div>
                 </div>
-                <div class="activity-item">
-                    <div class="activity-icon">📚</div>
-                    <div class="activity-content">
-                        <div class="activity-text">دوره <strong>React.js</strong> را شروع کردید</div>
-                        <div class="activity-time">۲ روز پیش</div>
-                    </div>
-                </div>
+
                 <div class="activity-item">
                     <div class="activity-icon">💰</div>
                     <div class="activity-content">

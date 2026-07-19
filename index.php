@@ -181,7 +181,6 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
         <a href="../index.php" class="nav-link active">خانه</a>
         <a href="pages/shop.php" class="nav-link">فروشگاه</a>
         <a href="pages/freelance.php" class="nav-link">فریلنسری</a>
-        <a href="pages/courses.php" class="nav-link">آموزش‌ها</a>
         <a href="pages/community.php" class="nav-link">انجمن</a>
         <a href="pages/pricing.php" class="nav-link">اشتراک‌ها</a>
       </div>
@@ -299,15 +298,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
             <div class="search-modal-item-desc">فریلنسر > طراحی</div>
           </div>
         </div>
-        <div class="search-modal-item">
-          <div class="search-modal-item-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-          </div>
-          <div class="search-modal-item-text">
-            <div class="search-modal-item-title">دوره جامع React.js</div>
-            <div class="search-modal-item-desc">آموزش > برنامه‌نویسی</div>
-          </div>
-        </div>
+
         <div class="search-modal-group-title">دسته‌بندی‌ها</div>
         <div class="search-modal-item">
           <div class="search-modal-item-icon">
@@ -386,7 +377,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
           </div>
           <h3 class="feature-title">فروشگاه دیجیتال</h3>
-          <p class="feature-desc">هزاران محصول دیجیتال با کیفیت بالا، از قالب و افزونه تا منابع آموزشی و ابزارهای حرفه‌ای.</p>
+          <p class="feature-desc">هزاران محصول دیجیتال با کیفیت بالا، از قالب و افزونه تا ابزارهای حرفه‌ای.</p>
         </div>
 
         <!-- Feature 2 -->
@@ -425,14 +416,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
           <p class="feature-desc">سیستم امتیازدهی، سطوح کاربری، ماموریت‌های روزانه، دستاوردها و جوایز ویژه.</p>
         </div>
 
-        <!-- Feature 6 -->
-        <div class="feature-card">
-          <div class="feature-icon cyan">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg>
-          </div>
-          <h3 class="feature-title">آموزش و یادگیری</h3>
-          <p class="feature-desc">دوره‌های آموزشی حرفه‌ای، مقالات تخصصی، وبینارها و منابع یادگیری به‌روز.</p>
-        </div>
+
       </div>
     </div>
   </section>
@@ -748,7 +732,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
           <a href="#" class="footer-link">ثبت پروژه</a>
           <a href="#" class="footer-link">یافتن فریلنسر</a>
           <a href="#" class="footer-link">نمونه کارها</a>
-          <a href="#" class="footer-link">آموزش فریلنسری</a>
+
           <a href="#" class="footer-link">راهنمای پروژه</a>
         </div>
       </div>

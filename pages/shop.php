@@ -218,11 +218,6 @@ if (isset($_GET['error'])) {
                         </label>
                         <label class="form-check">
                             <input type="checkbox" onchange="applyFilter()">
-                            <span class="form-check-label">آموزشی</span>
-                            <span class="badge badge-neutral" style="margin-right: auto;">۲۳۴</span>
-                        </label>
-                        <label class="form-check">
-                            <input type="checkbox" onchange="applyFilter()">
                             <span class="form-check-label">گرافیک</span>
                             <span class="badge badge-neutral" style="margin-right: auto;">۱۷۸</span>
                         </label>
