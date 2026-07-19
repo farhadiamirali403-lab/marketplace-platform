@@ -500,7 +500,6 @@ $page_description = "مرکز پشتیبانی و راهنمای R_REX";
                     <option value="payment">پرداخت و صورتحساب</option>
                     <option value="product">محصولات</option>
                     <option value="account">حساب کاربری</option>
-                    <option value="freelance">فریلنسری</option>
                     <option value="other">سایر</option>
                 </select>
             </div>

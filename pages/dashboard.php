@@ -259,11 +259,7 @@ $page_title = "داشبورد | R_REX";
                 <div class="action-label">فروشگاه</div>
                 <div class="action-desc">خرید محصولات جدید</div>
             </a>
-            <a href="../pages/freelance.php" class="quick-action">
-                <div class="action-icon">💼</div>
-                <div class="action-label">فریلنسری</div>
-                <div class="action-desc">ثبت پروژه جدید</div>
-            </a>
+
             <a href="../pages/community.php" class="quick-action">
                 <div class="action-icon">💬</div>
                 <div class="action-label">انجمن</div>

@@ -92,10 +92,7 @@ $page_description = "انجمن تخصصی R_REX برای تبادل نظر";
             color: #f59e0b;
         }
         
-        .forum-category-badge.freelance {
-            background: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-        }
+
         
         [data-theme="dark"] .forum-category-badge.technical {
             background: rgba(59, 130, 246, 0.15);
@@ -181,7 +178,6 @@ $page_description = "انجمن تخصصی R_REX برای تبادل نظر";
                     <option>تکنیکال</option>
                     <option>طراحی</option>
                     <option>بازاریابی</option>
-                    <option>فریلنسری</option>
                 </select>
                 <select class="form-select" style="width:auto;padding-left:2rem;">
                     <option>جدیدترین</option>
@@ -251,34 +247,6 @@ $page_description = "انجمن تخصصی R_REX برای تبادل نظر";
         </div>
 
         <!-- Post 3 -->
-        <div class="forum-post">
-            <div class="forum-post-header">
-                <div class="forum-post-avatar" style="width:2.5rem;height:2.5rem;border-radius:var(--radius-full);background:linear-gradient(135deg,#4facfe,#00f2fe);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:var(--font-size-sm);">ع</div>
-                <div>
-                    <div class="forum-post-author">عرفان کریمی</div>
-                    <div class="forum-post-time">۱ روز پیش</div>
-                </div>
-                <div style="margin-right:auto;">
-                    <span class="forum-category-badge freelance">فریلنسری</span>
-                </div>
-            </div>
-            <div class="forum-post-title">چطور فریلنسر موفقی در ایران باشیم؟</div>
-            <div class="forum-post-excerpt">
-                سلام به همه! چند ماهه که به عنوان فریلنسر توی پلتفرم‌های مختلف کار میکنم. میخوام تجربیات موفقیت در فریلنسری رو با شما به اشتراک بذارم و از تجربیات شما هم استفاده کنم. چه چالش‌هایی داشتید؟
-            </div>
-            <div class="forum-post-footer">
-                <div class="forum-post-stats">
-                    <span>💬 ۲۴ پاسخ</span>
-                    <span>👁️ ۲۳۰ بازدید</span>
-                </div>
-                <div style="display:flex; gap:var(--space-2); margin-right:auto;">
-                    <button class="btn btn-ghost btn-xs">پاسخ</button>
-                    <button class="btn btn-ghost btn-xs">ذخیره</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Post 4 -->
         <div class="forum-post">
             <div class="forum-post-header">
                 <div class="forum-post-avatar" style="width:2.5rem;height:2.5rem;border-radius:var(--radius-full);background:linear-gradient(135deg,#43e97b,#38f9d7);display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:var(--font-size-sm);">ن</div>

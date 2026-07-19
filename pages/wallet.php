@@ -164,7 +164,7 @@
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
               </div>
               <div class="transaction-info">
-                <div class="transaction-title">تکمیل پروژه فریلنسری</div>
+                <div class="transaction-title">تکمیل پروژه</div>
                 <div class="transaction-desc">پروژه اپلیکیشن فینتک</div>
               </div>
               <div class="transaction-amount income">+۵,۰۰۰,۰۰۰ تومان</div>

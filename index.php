@@ -51,7 +51,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="R_REX - پلتفرم دیجیتال ابری ایران | فروشگاه، فریلنسری، کیف پول و بیشتر">
+  <meta name="description" content="R_REX - پلتفرم دیجیتال ابری ایران | فروشگاه، کیف پول و بیشتر">
   <meta name="theme-color" content="#3b82f6">
   <title>R_REX | اکوسیستم دیجیتال ابری</title>
   
@@ -180,7 +180,6 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
       <div class="navbar-nav hide-md">
         <a href="../index.php" class="nav-link active">خانه</a>
         <a href="pages/shop.php" class="nav-link">فروشگاه</a>
-        <a href="pages/freelance.php" class="nav-link">فریلنسری</a>
         <a href="pages/community.php" class="nav-link">انجمن</a>
         <a href="pages/pricing.php" class="nav-link">اشتراک‌ها</a>
       </div>
@@ -263,7 +262,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
         </div>
         <div class="notification-item-content">
-          <div class="notification-item-text"><strong>پیام جدید</strong> فریلنسر پروژه شما را تحویل داد</div>
+          <div class="notification-item-text"><strong>پیام جدید</strong> پروژه شما با موفقیت تکمیل شد</div>
           <div class="notification-item-time">۳ ساعت پیش</div>
         </div>
       </div>
@@ -275,7 +274,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
     <div class="search-modal-content">
       <div class="search-modal-input">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-        <input type="text" placeholder="جستجوی محصولات، فریلنسرها، دوره‌ها..." autofocus>
+        <input type="text" placeholder="جستجوی محصولات، دوره‌ها..." autofocus>
         <kbd style="padding:0.25rem 0.5rem;font-size:0.75rem;background:var(--bg-tertiary);border:1px solid var(--border-primary);border-radius:var(--radius-sm);cursor:pointer" onclick="Components.search.close()">ESC</kbd>
       </div>
       <div class="search-modal-results">
@@ -295,7 +294,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
           </div>
           <div class="search-modal-item-text">
             <div class="search-modal-item-title">محمد رضایی - طراح UI</div>
-            <div class="search-modal-item-desc">فریلنسر > طراحی</div>
+            <div class="search-modal-item-desc">فروشگاه > طراحی</div>
           </div>
         </div>
 
@@ -326,14 +325,14 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
         پلتفرم <span class="gradient-text">دیجیتال ابری</span> ایران
       </h1>
       <p class="hero-subtitle">
-        R_REX ترکیبی از فروشگاه دیجیتال، پلتفرم فریلنسری، کیف پول هوشمند، سیستم اشتراک و باشگاه مشتریان است. یک اکوسیستم کامل برای کسب‌وکار و زندگی دیجیتال شما.
+        R_REX ترکیبی از فروشگاه دیجیتال، کیف پول هوشمند، سیستم اشتراک و باشگاه مشتریان است. یک اکوسیستم کامل برای کسب‌وکار و زندگی دیجیتال شما.
       </p>
       <div class="hero-actions">
         <a href="pages/shop.php" class="btn btn-primary btn-lg">
           شروع خرید
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </a>
-        <a href="pages/freelance.php" class="btn btn-outline btn-lg"> استخدام فریلنسر</a>
+        <a href="pages/community.php" class="btn btn-outline btn-lg">انجمن</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat">
@@ -342,7 +341,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
         </div>
         <div class="hero-stat">
           <div class="hero-stat-value">۸,۵۰۰+</div>
-          <div class="hero-stat-label">فریلنسر فعال</div>
+          <div class="hero-stat-label">کاربر فعال</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-value">۴۵,۰۰۰+</div>
@@ -367,7 +366,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
           امکانات پلتفرم
         </div>
         <h2 class="section-title">همه چیز در یک پلتفرم</h2>
-        <p class="section-desc">از فروشگاه دیجیتال تا فریلنسری، از کیف پول هوشمند تا باشگاه مشتریان، همه آنچه نیاز دارید در R_REX در دسترس شماست.</p>
+        <p class="section-desc">از فروشگاه دیجیتال، از کیف پول هوشمند تا باشگاه مشتریان، همه آنچه نیاز دارید در R_REX در دسترس شماست.</p>
       </div>
 
       <div class="features-grid">
@@ -385,8 +384,8 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
           <div class="feature-icon purple">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="16" y1="11" x2="22" y2="11"/></svg>
           </div>
-          <h3 class="feature-title">پلتفرم فریلنسری</h3>
-          <p class="feature-desc">اتصال کارفرما و فریلنسر با سیستم پرداخت امن، قرارداد هوشمند و مدیریت پروژه حرفه‌ای.</p>
+          <h3 class="feature-title">کیف پول هوشمند</h3>
+          <p class="feature-desc">مدیریت مالی هوشمند با پرداخت امن، کیف پول دیجیتال و گزارش‌های مالی دقیق.</p>
         </div>
 
         <!-- Feature 3 -->
@@ -550,132 +549,6 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
   </section>
 
   <!-- ============================================
-       FREELANCE SECTION
-       ============================================ -->
-  <section class="section">
-    <div class="page-container">
-      <div class="section-header">
-        <div class="section-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          فریلنسری
-        </div>
-        <h2 class="section-title">بهترین فریلنسرهای ایران</h2>
-        <p class="section-desc">با هزاران فریلنسر حرفه‌ای در حوزه‌های مختلف آشنا شوید و پروژه‌های خود را با کیفیت بالا تحویل بگیرید.</p>
-      </div>
-
-      <div class="content-grid content-grid-4">
-        <!-- Freelancer 1 -->
-        <div class="user-card">
-          <div class="user-avatar">م</div>
-          <div class="user-name">محمد رضایی</div>
-          <div class="user-role">طراح UI/UX</div>
-          <div class="product-rating mb-4" style="justify-content:center">
-            <div class="rating">
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <span class="rating-text">(۴.۹)</span>
-          </div>
-          <div class="user-stats">
-            <div class="user-stat">
-              <div class="user-stat-value">۸۷</div>
-              <div class="user-stat-label">پروژه</div>
-            </div>
-            <div class="user-stat">
-              <div class="user-stat-value">۹۸٪</div>
-              <div class="user-stat-label">رضایت</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Freelancer 2 -->
-        <div class="user-card">
-          <div class="user-avatar">س</div>
-          <div class="user-name">سارا احمدی</div>
-          <div class="user-role">توسعه‌دهنده فرانت‌اند</div>
-          <div class="product-rating mb-4" style="justify-content:center">
-            <div class="rating">
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <span class="rating-text">(۴.۷)</span>
-          </div>
-          <div class="user-stats">
-            <div class="user-stat">
-              <div class="user-stat-value">۱۲۴</div>
-              <div class="user-stat-label">پروژه</div>
-            </div>
-            <div class="user-stat">
-              <div class="user-stat-value">۹۶٪</div>
-              <div class="user-stat-label">رضایت</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Freelancer 3 -->
-        <div class="user-card">
-          <div class="user-avatar">ع</div>
-          <div class="user-name">عرفان کریمی</div>
-          <div class="user-role">توسعه‌دهنده بک‌اند</div>
-          <div class="product-rating mb-4" style="justify-content:center">
-            <div class="rating">
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <span class="rating-text">(۴.۸)</span>
-          </div>
-          <div class="user-stats">
-            <div class="user-stat">
-              <div class="user-stat-value">۶۵</div>
-              <div class="user-stat-label">پروژه</div>
-            </div>
-            <div class="user-stat">
-              <div class="user-stat-value">۹۹٪</div>
-              <div class="user-stat-label">رضایت</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Freelancer 4 -->
-        <div class="user-card">
-          <div class="user-avatar">ن</div>
-          <div class="user-name">نیلوفر شریفی</div>
-          <div class="user-role">نویسنده محتوا</div>
-          <div class="product-rating mb-4" style="justify-content:center">
-            <div class="rating">
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-              <svg class="star filled" width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            </div>
-            <span class="rating-text">(۴.۶)</span>
-          </div>
-          <div class="user-stats">
-            <div class="user-stat">
-              <div class="user-stat-value">۲۰۳</div>
-              <div class="user-stat-label">پروژه</div>
-            </div>
-            <div class="user-stat">
-              <div class="user-stat-value">۹۷٪</div>
-              <div class="user-stat-label">رضایت</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============================================
        CTA SECTION
        ============================================ -->
   <section class="section">
@@ -698,7 +571,7 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
     <div class="footer-grid">
       <div class="footer-brand">
         <div class="footer-brand-name">R_REX</div>
-        <p class="footer-brand-desc">اکوسیستم دیجیتال ابری ایران. ترکیبی از فروشگاه دیجیتال، پلتفرم فریلنسری، کیف پول هوشمند و بیشتر.</p>
+        <p class="footer-brand-desc">اکوسیستم دیجیتال ابری ایران. ترکیبی از فروشگاه دیجیتال، کیف پول هوشمند و بیشتر.</p>
         <div class="footer-social">
           <a href="#" aria-label="اینستاگرام">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
@@ -727,13 +600,11 @@ if (isset($_GET['message']) && $_GET['message'] == 'شما با موفقیت خ�
       </div>
 
       <div>
-        <div class="footer-column-title">فریلنسری</div>
+        <div class="footer-column-title">کیف پول</div>
         <div class="footer-links">
-          <a href="#" class="footer-link">ثبت پروژه</a>
-          <a href="#" class="footer-link">یافتن فریلنسر</a>
-          <a href="#" class="footer-link">نمونه کارها</a>
-
-          <a href="#" class="footer-link">راهنمای پروژه</a>
+          <a href="#" class="footer-link">افزایش موجودی</a>
+          <a href="#" class="footer-link">تاریخچه تراکنش‌ها</a>
+          <a href="#" class="footer-link">تنضیمات</a>
         </div>
       </div>
 

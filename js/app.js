@@ -161,6 +161,6 @@ const Store = {
   notifications: [
     { id: 1, title: 'سفارش جدید', message: 'سفارش شما ثبت شد', time: '۵ دقیقه پیش', unread: true },
     { id: 2, title: 'پرداخت موفق', message: 'مبلغ ۵۰۰,۰۰۰ تومان به کیف پول اضافه شد', time: '۱ ساعت پیش', unread: true },
-    { id: 3, title: 'پیام جدید', message: 'فریلنسر پروژه شما را تحویل داد', time: '۳ ساعت پیش', unread: false }
+    { id: 3, title: 'پیام جدید', message: 'پروژه شما با موفقیت تکمیل شد', time: '۳ ساعت پیش', unread: false }
   ]
 };

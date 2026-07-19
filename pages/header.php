@@ -166,7 +166,6 @@ if (isset($_SESSION['is_logged_in']) && $_SESSION['is_logged_in'] === true) {
         <div class="navbar-nav hide-md">
             <a href="../index.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : ''; ?>">خانه</a>
             <a href="../pages/shop.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'shop.php' ? 'active' : ''; ?>">فروشگاه</a>
-            <a href="../pages/freelance.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'freelance.php' ? 'active' : ''; ?>">فریلنسری</a>
             <a href="../pages/community.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'community.php' ? 'active' : ''; ?>">انجمن</a>
             <a href="../pages/pricing.php" class="nav-link <?php echo basename($_SERVER['PHP_SELF']) == 'pricing.php' ? 'active' : ''; ?>">اشتراک‌ها</a>
         </div>
